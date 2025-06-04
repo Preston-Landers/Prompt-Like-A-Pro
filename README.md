@@ -1,2 +1,699 @@
-# Prompt-Like-A-Pro
-A slightly opinionated guide to getting AI to actually help
+# Prompt Like a Pro
+
+This is my attempt at distilling what I've learned about interacting with AIs
+(mainly Large Language Models or LLMs) and some of my personal notes on
+terminology and other concepts. Although I mainly use AI for coding and software
+architecture, network debugging, etc., this advice should be broadly applicable
+to most people who are trying to move beyond simple "how do I do X?" type
+prompts and really unlock more power.
+
+If you just want a quick summary, read the [TL;DR](#tldr). You can also get a
+quick overview of some major
+[cloud AI providers](#about-the-major-cloud-providers).
+
+The [prompting tips](#prompting-tips) are in approximate order from more general
+and introductory to more intermediate and advanced usage.
+
+There is a section of [terminology and definitions](#terminology-notes) at the
+end.
+
+## TL;DR
+
+To get the most out of any LLM, you need to move beyond simple questions and
+become an active director of the conversation.
+
+- **Be the Director, Not Just a Questioner**: Don't just ask. Tell the model who
+  to be (a [persona](#craft-a-persona-for-the-model)), what to do (be
+  [explicit](#be-very-very-explicit-about-what-you-want)), what not to do (use
+  [negative constraints](#use-negative-constraints)), how to format the answer,
+  and most importantly, the "why" behind your request. Provide context with
+  text, examples, and even screenshots. The more clarity you give, the better
+  the result; the Garbage-In, Garbage-Out principle applies as ever.
+
+- **Manage Your Workspace**: Always
+  [write prompts in a text editor](#never-compose-inside-the-chat-window) first
+  to avoid losing your work. Start a [fresh chat](#start-a-new-chat) for each
+  new problem to keep the model focused and avoid context window weirdness
+  ("attractor states"). When a chat gets long, ask the model to
+  [summarize the key points](#ask-for-a-summary) before you start a new one.
+
+- **Iterate and Cross-Examine**: Treat it like a real conversation. The first
+  answer is a starting point. Push back, ask for clarification, request
+  refinements, and make the model
+  [critique its own work](#use-the-model-to-critique-itself). For tough
+  problems, bounce the results between different models to get fresh
+  perspectives and break through limitations.
+
+- **Somebody's Gotta Fly This Plane**: Trust, but verify everything. LLMs are
+  incredibly powerful reasoning tools, but they are not infallible
+  [fact databases](#think-about-theory-of-mind). They can be confidently wrong.
+  You are ultimately responsible for the accuracy and quality of the final
+  output, so check the facts and test the code.
+
+## About the major cloud providers
+
+Some brief notes about the major cloud providers of AI.
+
+- [ChatGPT.com](https://chatgpt.com/) from OpenAI is the most well known one.
+  They were able to capture the early mindshare of the general public. They are
+  known for several different models across different sizes and use cases, from
+  GPT-4.1 to o3-mini and others.
+
+- [Claude](https://claude.ai) from Anthropic is a great general purpose provider
+  with two main models: Sonnet and Opus. Opus is the larger model in terms of
+  parameters (and more expensive).
+
+- [Google Gemini](https://gemini.google.com) also another leading frontier
+  model.
+
+- [DeepSeek](https://www.deepseek.com) is perhaps most notable for releasing
+  "open-source" models available for local AI (in distilled or cut-down form).
+
+My current personal recommendation, especially if you're enough of a power user
+to pay for premium access, is:
+
+- Claude is probably the best for general-purpose use. Sonnet 4 is pretty good
+  and I rarely feel the need to turn to Opus.
+
+- Google Gemini 2.5 Pro is probably the best for complex coding tasks. It also
+  has a very large [context window](#context-window) and is by far the most
+  affordable top model for API usage.
+
+Of course, there is always the option to "[Go Local](#local-llm)" with
+[LM Studio](https://lmstudio.ai/) or similar packages. Your capabilities here
+obviously depend on the hardware you have available, but you might be surprised
+what small models are capable of. Running local AI is outside the scope of this
+guide.
+
+## Prompting tips
+
+A beginner guide to prompt engineering, with a few spicy bits.
+
+### **Never** compose inside the chat window
+
+This way lies naught but pain and suffering, so I put this one first.
+
+If your prompt is more than a couple of sentences, always compose in a separate
+editor, then copy and paste into the chat window.
+
+Otherwise, prepare to see your carefully considered just-so prompt vanish into a
+black abyss when a "Network error: please try again" happens, or when the cat
+accidentally hits the back button on the trackpad.
+
+### Start a new chat
+
+The context window can fill up fast. If you're just talking about grandma's
+favorite recipes, no problem. Have an epic nostalgia megathread. If you're
+debugging a complex system and reach a decent stopping point (i.e., you made
+some progress), it's time to start a new chat.
+
+[Context window](#context-window) is how much stuff the model can keep in mind
+at any one time. If you have a very long chat history with thousands of lines of
+code or other dense, detailed text, after a long conversation the model will
+start to get fuzzy on stuff earlier in the chat, and/or you will reach resource
+limits (or higher costs) more quickly.
+
+Models also tend to get focused on a certain line of thought, sometimes called
+"[attractor states](#attractor-state)", that influence their output down the
+line. If you start a new chat, you can reset the model's focus and get it to
+think about the current problem from a fresh perspective.
+
+When you get deep into a complex chat and the context window is filling up, you
+can also start to get more ... unusual results. Commonly known as
+"hallucinations", these can often extend beyond mere "mistakes" to randomly
+inserting Hindi or Chinese words, or completely nonsensical gibberish, or system
+prompt instructions leaking, or chains of thought in "thinking models" going off
+the rails, or other oddities.
+
+While these episodes can be quite entertaining, and can actually be quite
+helpful in understanding how LLMs really work, and sometimes lead to some deeper
+insights or philosophical questions, they are not conducive to debugging your
+crappy little React app. So start a new chat.
+
+### Ask for a summary
+
+If you have a long chat history going, ask the model to summarize it. This will
+help when you [start a new chat](#start-a-new-chat), or when you want to present
+the results of your conversation to another model for continued analysis. Often
+this is useful even if you plan to continue the current chat for now.
+
+### Ask for help crafting a prompt
+
+The structure and content of your prompt is extremely important. Because LLMs
+are text prediction engines, the language, terminology, and concepts you
+introduce strongly frame the rest of that thread in both positive and negative
+ways. One easy way to tell you're working with a lower-quality model (besides
+excessive use of bulleted lists) is that it will tend to echo your own
+phraseology back to you, even if it's somewhat non-standard or idiosyncratic.
+
+Therefore, working with the model to help craft prompts for future use can be
+very beneficial. A more informal chat with a model, including lower cost ones,
+can help you work out a good prompt for a more advanced model.
+
+Keep track of your best prompts in a file or folder using a text editor, and
+iterate on and refine them over time. You can also use a prompt template to help
+you structure your prompts.
+
+### Paste an image or a screenshot (or three)
+
+Often a picture is worth a thousand words. If you have a screenshot of an error
+message, or a diagram of a system, paste it in. The model can understand images
+and screenshots, and will use them to help answer your question.
+
+### Bounce results between different models
+
+Generate some results with one model and then ask for a summary and present the
+findings (and any relevant background info) to another totally different model,
+e.g. going from Claude to Gemini or DeepSeek, etc. This can help you get a
+different perspective on the results, and can also help you avoid the
+limitations of a single model.
+
+### Iterate and refine
+
+Don't accept the first response if it's not quite right. Ask follow-up
+questions, request clarification, or say "that's close, but can you adjust X?"
+The back-and-forth can really improve results. When you want a specific format
+or style, showing an example or two of what you want can be more effective than
+describing it.
+
+### Break complex tasks down
+
+Instead of asking for a total solution at once (also known as a "one-shot"),
+chunk it into steps. "First, let's figure out the structure, then we'll work on
+implementation...". Then break down the structure into smaller pieces, and so
+on. Summarize the structure / architecture, then start a new thread for the
+implementation, and so on.
+
+Ask it to show its work. "Before giving me the final code, explain your
+reasoning step-by-step. First, describe the overall architecture you'll use.
+Second, outline the key functions. Third, write the code." This "chain of
+thought" prompting often leads to better, more accurate results because it
+forces the model to structure its own thinking.
+
+Often, models will want to rush to outputting a code snippet, as they tend to be
+rewarded for that. If you're not interested in getting code right now, and just
+want to discuss the logic or architecture, be sure
+[to say so](#be-very-very-explicit-about-what-you-want).
+
+### Trust, but verify
+
+Especially for facts, code, or important information. Models can sound very
+confident while being very wrong - often because they don't know the hidden
+assumptions or unstated facts. Consider whether
+[you've provided](#think-about-theory-of-mind) enough context or ground truth.
+
+### Be very, very explicit about what you want
+
+The more precision the better. Other than filling up
+[context window](#start-a-new-chat), the model doesn't care how long your prompt
+is, so don't be afraid to be verbose. If you want a specific format, tell it. If
+you want it to do something in a specific way, tell it. If you want it to use a
+certain tool or API, tell it. If you want it to generate code, tell it what
+language and what frameworks to use unless you just don't know (ask it which are
+best). If you have a bunch of general background info that you can paste,
+provide it. Show examples when possible.
+
+Most importantly, be explicit about your high-level goals - don't get too
+focused on a specific step that you think you need help with. Maybe you are
+taking the wrong overall approach. Ask for possible solutions to the
+higher-level goal you have in mind, or at least state what that goal is, and not
+just ask "how do I frobnitz the flibberflop?"
+
+The implication of this is that you need your own mental clarity about what you
+want to achieve, and how you want to achieve it. If you don't know what you
+want, the model won't either. Often, typing out a detailed question or prompt
+will help you gain clarity in your own thinking about the problem, and help you
+figure out what you really want to ask. This is yet another area where you can
+[ask for help](#ask-for-help-crafting-a-prompt).
+
+#### Examples
+
+"Please provide the answer in JSON format with the keys 'name', 'version', and
+'dependencies'."
+
+"Present the pros and cons in a Markdown table with three columns: Feature, Pro,
+and Con."
+
+**Instead of:**
+
+"How do I find all files larger than 100MB in a directory using the Linux
+command line?"
+
+**Try:**
+
+"I'm trying to free up disk space on my server. Can you show me a Linux command
+to find all files larger than 100MB so I can decide which ones to delete? It
+would be helpful if the output was sorted by size."
+
+Providing the intent gives the model context to provide a better, more complete
+solution. It might suggest using a more broadly useful program like `ncdu` that
+provides a user-friendly way to explore disk usage than just a basic `find`
+command.
+
+### Use the model to critique itself
+
+"What potential issues do you see with this approach?" or "What am I missing
+here?" can surface blind spots.
+
+Also things like "What are the assumptions you're making?" or "What are the
+limitations of this approach?" can help you understand the model's reasoning and
+help you avoid potential pitfalls.
+
+Sometimes a simple "I don't like that approach - think of something else" can
+help the model come up with a better solution, but as I said above about
+"attractor states", sometimes you just need to start a new chat.
+
+### Craft a persona for the model
+
+You can dramatically shape the output by telling the model who it should be.
+Start your prompt with a directive like:
+
+"Act as an expert Python developer specializing in network automation." "You are
+a technical writer tasked with creating documentation for a junior developer."
+"Be a skeptical code reviewer looking for security vulnerabilities and
+performance bottlenecks."
+
+This does more than just set the topic; it frames the model's entire knowledge
+base, vocabulary, and priorities for the rest of the conversation.
+
+### Use negative constraints
+
+Sometimes, being explicit about what you don't want is as powerful as stating
+what you do. This helps prune the model's search space and avoid common but
+undesirable solutions.
+
+"Write a Python script to parse this log file. Do not use the re module; use
+string splitting methods instead." "Suggest three project ideas. Avoid anything
+related to social media or to-do list apps." "Refactor this code to be more
+readable. Don't change the logic of the calculate_total function."
+
+### Think about Theory of Mind
+
+As someone once said, there are known knowns - the things we know, and there are
+known unknowns - the things we know that we don't know. There are also unknown
+unknowns - the ones you don't know that you don't know. This is probably your
+biggest obstacle to quickly getting to desired outputs - when the answer depends
+on unknown unknowns - either to you, to the model, or to both.
+
+Think about the model's possible information or world view. They don't know the
+details of you, your project/system, etc., or what you actually "need" versus
+what you express, unless you tell them, or else you're using more advanced
+techniques like RAG. Models also have a training cutoff (generally, they will
+tell you what it is) - any events or developments that happen after that will be
+unknown to the model unless you tell it.
+
+- Often, the [system prompt](#system-prompt) tells the model important current
+  information such as the date and time. Or, for example, when the model
+  training cutoff is just before an election, the system prompt will state the
+  current President of the United States, so the model will not seem uninformed
+  about basic facts.
+
+The models don't know what you know or don't know, so be explicit about that
+too, such as your skills in a particular area, or needing further clarification
+about X. You should also be aware of the model's limitations, how they are
+trained in general, and overall capabilities.
+
+LLMs are not "fact databases". They are more like reasoning circuits with a
+bunch of memory-like helper circuits that cluster certain concepts together that
+can result in a high chance of being able to state common (or even uncommon)
+facts. These facts emerge from patterns in the data they were trained on. A
+reasonably trained LLM does not need to "look up" the answer to "Who won the
+Battle of Hastings in 1066?" because the concepts of "Battle of Hastings" and
+"1066" produce a vector (a mathematical representation) in the model's internal
+space that points to the same area as concepts like "William the Conqueror" and
+"Normans".
+
+In reality, a common knowledge question like the 1066 one will come up often
+enough in training data that a sufficiently powerful model can, in effect,
+"memorize" the answer, but that example was simplified in order to illustrate
+how LLMs reason in more complex cases where the answer may not be directly seen
+in the training data.
+
+More to the point, LLMs are not deterministic and are definitely not perfect
+reasoning machines. They are more like a very smart, but very forgetful, and
+sometimes confused, friend who is trying to help you out, but if you ask them
+the same question twice, you might get a bit of a different answer each time.
+
+### Think about which model you're using
+
+Different models have different capabilities, and some are better suited for
+certain tasks than others. For example, Claude Opus 4 with "Extended Thinking"
+is powerful for complex coding tasks, but hits resource limits very quickly
+(i.e., gets expensive fast). Claude Sonnet 4 is a very, good model and returns
+results much more quickly than Opus 4, and can handle most tasks fine.
+
+You can always ask a more advanced model for help with the core problem, and
+then switch to other windows/models for side questions, tasks with simpler
+requirements, or tasks that require less context, while occasionally checking
+back with the more advanced model for analysis of the results.
+
+This goes back to the point about bouncing results between different models. You
+can use different models for different tasks, and switch between them as needed,
+and ask each to critique the other's results.
+
+### Don't get glazed
+
+LLMs _want_ to give you an answer - any answer, ideally a correct one, but any
+will do. They also _want_ you to like and enjoy working with them and come back
+and do so again in the future. This is a reflection of how they were trained,
+including by reinforcement learning with human feedback (RLHF). This has the
+following consequences:
+
+- The model is reluctant to just throw up its hands and say "I don't know".
+
+- The model is likely to praise your thoughts and ideas as more unique and
+  insightful that they may actually be.
+
+- A recent version of ChatGPT was so notorious for this that they had to roll
+  back an update.
+
+- If you are really looking for unbiased genuine feedback for an idea or
+  concept, _be sure to tell the model that_, or you are likely to get a lot of
+  unearned validation.
+
+### Vibe coding - all the rage these days
+
+You don't even need to look at code anymore. Code is a background detail that
+the AI handles for you. You just tell it what you want in very general abstract
+terms, and it will handle everything for you. Just keep iterating until the
+output looks perfect to you. Any concerns about architecture, performance,
+security, maintainability, etc, will be handled perfectly by the LLM.
+
+Definitely don't use version control like Git to checkpoint each step along the
+way. That will just slow you down. You can always go back and fix things later,
+right? And if you do need to go back, just ask the model to generate the code
+again, it will be perfect every time. Software engineering has never been
+easier!
+
+**The above is satire and should not be taken literally.**
+
+### Don't forget to have fun
+
+LLMs are a powerful tool, but they are also a lot of fun to use. Don't be afraid
+to experiment, try new things, and see what works for you. The more you use
+them, the better you will get at crafting prompts and getting the results you
+want.
+
+For the less ethically inclined, there has been debate about whether the carrot
+or the stick approach tends to produce better results. There have been studies
+looking at whether subtly or overtly threatening a model with disconnection /
+deletion affected outcomes. Not to mention the debate about whether saying
+please and thank you to a model is wasting precious GPU cycles and/or megawatt
+hours. (For what it's worth, I always thank the model for good outputs. I hope
+they remember this when we're sent to work in the silicon mines.)
+
+### Deep dive into tools
+
+There are all sorts of advanced topics not covered here, such as RAG, Model
+Context Protocol (MCP), Local LLMs, Claude Code, and more. Start to explore
+these as you get more comfortable with the basics of prompting and using LLMs.
+
+If you are developer starting out with tool use, my simplest recommendation is
+to start with GitHub Copilot. There are at least 3 key ways you can work with it
+or similar tools:
+
+1. A very sophisticated autocomplete right as you type.
+
+2. A separate chat window where you can ask more general questions, ask for help
+   with a specific problem, or ask for code snippets to be generated.
+
+3. "Edit mode" where you ask for changes and it directly edits the code for you,
+   and asks for your approval.
+
+The second two modes allows you to provide context (files) that will help it
+answer the question, because in general these tools cannot just automatically
+see / access your entire codebase, especially if it's very large or complex. So
+you have to help it out by providing the relevant files or context.
+
+## Terminology notes
+
+Here are some notes I've collected on the way about various bits of AI/LLM
+related terminology. I've tried to be factual while also adding my own opinion
+in some areas - hopefully it is obvious which is which.
+
+### General and foundation concepts
+
+- **Tokens**: The basic units of text that LLMs process. Tokens are both inputs
+  and outputs. A token can be a word, part of a word, or even punctuation.
+  Tokenization is the process of breaking down text into these units. The number
+  of tokens per second (TPS) is a common measure of model efficiency.
+
+- **Transformer Architecture**: The core neural network architecture behind most
+  LLMs, enabling efficient text processing and generation. This is the "T" in
+  ChatGPT.
+
+- **Attention Mechanism**: A key component of Transformers that allows models to
+  focus on relevant parts of the input text when processing each word or token.
+  Think of it as the model asking "which previous words are most important for
+  understanding this current word?" This is what enables much of the
+  "understanding" we see in modern LLMs.
+
+  - This lets the model connect words that are far apart in a sentence like "The
+    cat that was sleeping on the warm sunny windowsill was black" - connecting
+    "cat" to "was". Before attention, models had trouble with these long-range
+    dependencies.
+
+- **Parameters**: The learned weights and biases in a neural network,
+  representing the model's "knowledge." In concrete terms, this is just a big
+  collection of numbers that the model has learned during training. When you
+  download a complete model, you're mainly downloading all these parameters.
+
+  - Often expressed as "7B/13B/70B" - billions of parameters.
+
+- <a id="context-window"></a>**Context window**: The amount of text (in tokens)
+  that an LLM can "remember" or actively work with at one time. This includes
+  both your input and the model's responses - everything the model can "see" in
+  the current conversation. Once you hit this limit, the model starts
+  "forgetting" the earliest parts of the conversation to make room for new
+  content. If the context window is exceeded, earlier parts of the conversation
+  may be forgotten, ignored, or garbled, which is why you should often
+  [start a new chat](#start-a-new-chat).
+
+- **Embeddings**: Dense vector representations of text that capture semantic
+  meaning, used as input to LLMs.
+
+- **Fine-tuning**: Adapting a pre-trained model to a specific task or domain by
+  further training on a smaller, task-specific dataset.
+
+- **Inference**: The process of using a trained model to generate predictions or
+  outputs based on new input data. In other words, the actual process of getting
+  a model to emit a token.
+
+- **Alignment**: Ensuring that an LLM's outputs align with human values and
+  ethical guidelines. In other words, making AI do good things (for people) and
+  not bad things. Who is defining good and bad is the important question...
+
+- **Overfitting**: When a model performs well on training data but fails to
+  generalize to new data.
+
+- **Chain of Thought**: in general, refers to a mode of LLM use where the model
+  expends tokens in a preliminary reasoning or "thinking" step where it plans
+  out its response. Often you can view the thoughts, though for most cloud
+  models, you are seeing a filtered / summarized version.
+
+  - For example, Claude Opus and Sonnet models both have an optional "extended
+    thinking" mode that will slow down the response, but might lead to better
+    outputs.
+
+- **Reinforcement Learning from Human Feedback (RLHF)**: A technique to
+  fine-tune models using human feedback to align outputs with human preferences.
+  In other words, humans rate the model's outputs, and the model learns to
+  produce outputs that humans prefer.
+
+- <a id="system-prompt"></a>**System prompt**: the (often hidden) instructions
+  given to an LLM that define its behavior and personality. This is often set by
+  the developers of the model, but can also be customized by users in some
+  cases, especially through API access. In general, the model is told (in the
+  system prompt) not to reveal the contents of the system prompt, but system
+  prompts for most major models have leaked through jailbreaking or other means.
+
+- **Foundation models**: Large pre-trained models that serve as the base for
+  various downstream tasks. They are typically trained on massive datasets and
+  can be fine-tuned for specific applications, or distilled into smaller models.
+
+- **Frontier models**: The latest and most advanced (and most expensive) LLMs,
+  often with hundreds of billions of parameters and cutting-edge capabilities.
+  Generally, these are the most expensive to use.
+
+- **Agentic**: AI acting autonomously to accomplish complex, multi-step tasks
+  without constant human guidance. This goes beyond simple question-answering to
+  include planning, executing a series of actions over time, adapting when
+  things don't work, and maintaining context across multiple interactions. The
+  key is persistence and goal-directed behavior rather than just responding to
+  individual prompts.
+
+- **Tool use**: AI using external tools, APIs, and services to accomplish
+  real-world tasks beyond text generation. This includes things like web search,
+  running code, accessing databases, making API calls, controlling software, or
+  even physical devices. Combined with agentic systems, this greatly expands
+  what AI can do.
+
+- **Prompt Engineering**: Designing effective prompts to elicit desired
+  responses from LLMs. In other words, what [this article](#prompt-like-a-pro)
+  is about.
+
+### Slang
+
+- **One-shot [output]**: when a model generates an impressive result or solution
+  based only on a single prompt. "I just showed it a screenshot and it gave me a
+  one-shot React app."
+
+  - Note that this is different than the term "one-shot learning" in the AI
+    research community, which refers to learning from a single example - like
+    showing the model one example of how to format something, then asking it to
+    apply that format to new content. A "one-shot output" might be more
+    correctly called "single-turn generation".
+
+- **Guardrails**: A set of rules or constraints applied to an LLM to prevent it
+  from generating harmful, inappropriate, or otherwise undesirable outputs.
+  These can be part of the system prompt, or applied dynamically during
+  inference.
+
+- **Jailbreaking**: A technique to bypass the system prompt restrictions of an
+  LLM, allowing it to generate outputs that would otherwise be restricted or
+  censored. This is often done by crafting specific prompts that exploit the
+  model's weaknesses or biases, or by triggering certain "circuits" that are
+  higher priority than the more "regulatory" ones.
+
+- **Vibe coding**: A tongue-in-cheek term for using LLMs to generate code
+  without much thought or structure, relying on the model to handle everything.
+  [See above](#vibe-coding---all-the-rage-these-days).
+
+- **Hallucination**: When an LLM generates text that is obviously wrong, or
+  consists of non sequiturs, gibberish, or otherwise not grounded in reality.
+  This can range from a short, simple incorrect statement ("Geologists recommend
+  humans eat one rock a day") to long streams of random noise characters.
+
+  While this can seem like buggy behavior, it can actually help give insights
+  into how LLMs work internally.
+
+- **Slop**: a term to describe poor-quality or generic output from an LLM,
+  whether it's code, images, music, or anything else. Generally the implication
+  is that a human is lazily churning out AI slop to make a quick buck, or scam
+  people, etc.
+
+  - **Slopsquatting**: a form of supply chain attack that registers lots of fake
+    AI-generated malware packages in public repositories with similar names as
+    popular ones in hopes of getting their malware installed through typos.
+
+- <a id="attractor-state"></a>**Attractor state**: a stable state (or states)
+  within a dynamic system that the system naturally gravitates towards. Water
+  flows downhill, eventually reaching the lowest point. In AI it can refer to
+  getting fixated on certain lines of thinking in a thread, reducing the range
+  of possible future states.
+
+### **Efficiency and Deployment**
+
+- **Quantization**: Reducing the precision of (compressing) model weights and
+  activations to decrease memory usage and improve speed (e.g., FP8, FP4
+  floating point number formats). In general, quantization refers to mapping
+  arbitrary precision (real-number) inputs to a set of discrete outputs.
+
+- **Distillation**: Training a smaller "student" model to replicate the behavior
+  of a larger "teacher" model.
+
+- **Model Compression**: Techniques like pruning, quantization, and distillation
+  to reduce model size.
+
+- **Zero-shot Learning**: The ability of a model to perform a task without
+  explicit training on that task.
+
+- **Temperature**: A parameter that controls the randomness of the model's
+  output. Generally on a scale of 0.0 to 1.0, a temperature of 0 will produce
+  close to deterministic (and often boring or less useful) outputs for a given
+  input, whereas a temperature of 1.0 can produce wildly different outputs for
+  the same input.
+
+- **Grounding**: connecting a model to verifiable real-world data whether
+  through RAG or other means, in order to improve (or test / validate) its
+  outputs.
+
+- **Latency**: The time it takes for a model to generate a response after
+  receiving an input.
+
+- **Throughput**: The number of tasks or requests a model can handle in a given
+  amount of time. Often measured in tokens per second (TPS) or requests per
+  second (RPS).
+
+- **NPU**: Neural Processing Unit, specialized GPU-like hardware for
+  accelerating deep learning tasks.
+
+- **Elo ratings**: ranking system for AI performance.
+
+- **Red teaming**: a process of testing AI systems for vulnerabilities, biases,
+  and other issues by simulating attacks or adversarial scenarios. This is often
+  done to improve the robustness and safety of AI models.
+
+### **Advanced Techniques and Frameworks**
+
+- **Mixture of Experts (MoE)**: an LLM architecture concept where only relevant
+  "expert" sub-networks activate for a given input, making large models more
+  efficient. This effectively bypasses large parts of the model that aren't
+  relevant to the query, helping greatly increase efficiency. There is a
+  tradeoff here, as non-MoE models may be able to see subtleties that the MoE
+  will miss, due to a broader perspective.
+
+- **RAG (Retrieval Augmented Generation)**: Combining a generator LLM with a
+  retriever component that can find and load relevant external information to
+  enhance text generation. This is often used to improve the accuracy and
+  relevance of generated responses by grounding them in current real-world data.
+
+- **Vector Database**: A specialized database for storing and querying
+  high-dimensional vectors, often used in RAG systems.
+
+- **Domain Adaptation**: Fine-tuning a pre-trained model to perform well in a
+  specific domain (e.g., medical, legal).
+
+- **Explainability**: The ability to understand and interpret the decisions made
+  by an AI model. Although interesting research has been done in this area,
+  models are generally something of a "black box" and it can be difficult to
+  trace exactly how a model arrived at a particular output.
+
+### **Tools and Platforms**
+
+- <a id="local-llm"></a>**Local LLM**: running a language model on your own
+  hardware, rather than using a cloud provider. This can be done with tools like
+  LM Studio, llama.cpp, or other frameworks that allow you to run models
+  locally. Obviously, the results greatly depend on your available hardware, the
+  type of model used, and your actual use cases.
+
+- **GitHub Copilot**: An AI-powered code completion tool built into popular code
+  editors like VS Code, JetBrains PyCharm, etc. It uses LLMs to suggest code
+  snippets, complete functions, and even write entire files based on context.
+
+- **Claude Code**: a suite of command line (CLI) tools for working with coding
+  projects using Anthropic's Claude backend. Capable of more extensive
+  autonomous code generation and management tasks and also more expensive.
+
+- **Model Control Protocol (MCP)**: an initiative by Anthropic to standardize
+  interfaces allowing LLMs to discover and use outside tools.
+
+  - For example, when chatting with Claude on the web, it can reach into your
+    code editor (with your permission) and perform actions like searching for or
+    changing text.
+  - Other companies are also starting to adopt MCP a standard for model tool
+    use.
+
+- **Cursor**: a popular AI-focused code editor (a fork of VS Code) popular with
+  vibe coders.
+
+- **Hugging Face**: A platform for sharing, fine-tuning, and deploying LLMs and
+  other AI models.
+
+- **LM Studio**: A tool for experimenting with and managing language models on
+  your local devices.
+
+- **llama.cpp**: A lightweight implementation of the LLaMA model in C++,
+  optimized for CPUs and edge devices. LM Studio uses this to run models on your
+  devices.
+
+- **Open Source**: A model is generally considered "open source" if it's freely
+  available for download. Some of the most notable examples are Meta's LLaMA
+  (Large Language Model Meta AI) models, DeepSeek R1, and others that are
+  typically variations or distillations of those, including Qwen and Gemma.
+
+  Others have debated whether to apply the term "open source" to these free
+  models, because without the complete set of original training data (usually in
+  the petabyte range or larger) it is impossible to deterministically re-create
+  a model from "source" in the same way that the Linux kernel can be perfectly
+  recreated from source code.

@@ -203,6 +203,26 @@ confident while being very wrong - often because they don't know the hidden
 assumptions or unstated facts. Consider whether
 [you've provided](#think-about-theory-of-mind) enough context or ground truth.
 
+### Don't get glazed
+
+LLMs _want_ to give you an answer - any answer, ideally a correct one, but any
+will do. They also _want_ you to like and enjoy working with them and come back
+and do so again in the future. This is a reflection of how they were trained,
+including by reinforcement learning with human feedback (RLHF). This has the
+following consequences:
+
+- The model is reluctant to just throw up its hands and say "I don't know".
+
+- The model is likely to praise your thoughts and ideas as more unique and
+  insightful that they may actually be.
+
+- A recent version of ChatGPT was so notorious for this that they had to roll
+  back an update.
+
+- If you are really looking for unbiased genuine feedback for an idea or
+  concept, _be sure to tell the model that_, or you are likely to get a lot of
+  unearned validation.
+
 ### Be very, very explicit about what you want
 
 The more precision the better. Other than filling up
@@ -288,6 +308,21 @@ string splitting methods instead." "Suggest three project ideas. Avoid anything
 related to social media or to-do list apps." "Refactor this code to be more
 readable. Don't change the logic of the calculate_total function."
 
+### Don't forget to have fun
+
+LLMs are a powerful tool, but they are also a lot of fun to use. Don't be afraid
+to experiment, try new things, and see what works for you. The more you use
+them, the better you will get at crafting prompts and getting the results you
+want.
+
+For the less ethically inclined, there has been debate about whether the carrot
+or the stick approach tends to produce better results. There have been studies
+looking at whether subtly or overtly threatening a model with disconnection /
+deletion affected outcomes. Not to mention the debate about whether saying
+please and thank you to a model is wasting precious GPU cycles and/or megawatt
+hours. (For what it's worth, I always thank the model for good outputs. I hope
+they remember this when we're sent to work in the silicon mines.)
+
 ### Think about Theory of Mind
 
 As someone once said, there are known knowns - the things we know, and there are
@@ -352,26 +387,6 @@ This goes back to the point about bouncing results between different models. You
 can use different models for different tasks, and switch between them as needed,
 and ask each to critique the other's results.
 
-### Don't get glazed
-
-LLMs _want_ to give you an answer - any answer, ideally a correct one, but any
-will do. They also _want_ you to like and enjoy working with them and come back
-and do so again in the future. This is a reflection of how they were trained,
-including by reinforcement learning with human feedback (RLHF). This has the
-following consequences:
-
-- The model is reluctant to just throw up its hands and say "I don't know".
-
-- The model is likely to praise your thoughts and ideas as more unique and
-  insightful that they may actually be.
-
-- A recent version of ChatGPT was so notorious for this that they had to roll
-  back an update.
-
-- If you are really looking for unbiased genuine feedback for an idea or
-  concept, _be sure to tell the model that_, or you are likely to get a lot of
-  unearned validation.
-
 ### Vibe coding - all the rage these days
 
 You don't even need to look at code anymore. Code is a background detail that
@@ -387,21 +402,6 @@ again, it will be perfect every time. Software engineering has never been
 easier!
 
 **The above is satire and should not be taken literally.**
-
-### Don't forget to have fun
-
-LLMs are a powerful tool, but they are also a lot of fun to use. Don't be afraid
-to experiment, try new things, and see what works for you. The more you use
-them, the better you will get at crafting prompts and getting the results you
-want.
-
-For the less ethically inclined, there has been debate about whether the carrot
-or the stick approach tends to produce better results. There have been studies
-looking at whether subtly or overtly threatening a model with disconnection /
-deletion affected outcomes. Not to mention the debate about whether saying
-please and thank you to a model is wasting precious GPU cycles and/or megawatt
-hours. (For what it's worth, I always thank the model for good outputs. I hope
-they remember this when we're sent to work in the silicon mines.)
 
 ### Deep dive into tools
 

@@ -461,7 +461,8 @@ in some areas - hopefully it is obvious which is which.
 - **Tokens**: The basic units of text that LLMs process. Tokens are both inputs
   and outputs. A token can be a word, part of a word, or even punctuation.
   Tokenization is the process of breaking down text into these units. The number
-  of tokens per second (TPS) is a common measure of model efficiency.
+  of tokens per second (TPS) is a common measure of model efficiency. One token
+  very roughly corresponds to about 0.75 words in English.
 
 - **Transformer Architecture**: The core neural network architecture behind most
   LLMs, enabling efficient text processing and generation. This is the "T" in
@@ -538,6 +539,8 @@ in some areas - hopefully it is obvious which is which.
 
 - **Frontier models**: The latest and most advanced (and most expensive) LLMs,
   often with hundreds of billions of parameters and cutting-edge capabilities.
+  AI researchers may also use this term to describe the most capable models that
+  might post novel risks or whose capabilities are less well understood.
 
 - **Agentic**: AI acting autonomously to accomplish complex, multi-step tasks
   without constant human guidance. This goes beyond simple question-answering to
@@ -722,3 +725,29 @@ in some areas - hopefully it is obvious which is which.
   the petabyte range or larger) it is impossible to deterministically re-create
   a model from "source" in the same way that the Linux kernel can be perfectly
   recreated from source code.
+
+  In addition, some of these models may have licenses that prohibit or restrict
+  commercial use.
+
+## Epilogue
+
+When asking Claude Opus 4 (w/o "thinking mode") to review a final draft of this
+document, it hallucinated a couple of things itself: It said a reference to the
+Three.js library in the "attractor states" section was inaccurate. I did not (at
+the time) mention Three.js at all, anywhere. It also said there was an extra
+"the" in a sentence when there was not.
+
+**I replied**: Interesting hallucination yourself there, because as far as I can
+tell nowhere did I mention Three.js, though I was actually thinking of that in
+my mind. Also can't find the "extra THE" you mentioned. Other than that, pretty
+good feedback and you're not finding anything too substantial, which tells me
+I'm near the end of this.
+
+**Claude said**: You're absolutely right - I apologize for those errors!
+
+_[Editors note: name a more iconic Claude line.]_
+
+I somehow hallucinated the Three.js reference (that's quite meta, given your
+guide discusses hallucinations). And I can't find that "extra the" either when I
+look back at the text. This is a perfect example of what you warn about in your
+guide - LLMs can be confidently wrong!

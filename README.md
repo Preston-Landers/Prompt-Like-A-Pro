@@ -689,7 +689,7 @@ in some areas - hopefully it is obvious which is which.
   projects using Anthropic's Claude backend. Capable of more extensive
   autonomous code generation and management tasks and also more expensive.
 
-- **Model Control Protocol (MCP)**: an initiative by Anthropic to standardize
+- **Model Context Protocol (MCP)**: an initiative by Anthropic to standardize
   interfaces allowing LLMs to discover and use outside tools.
 
   - For example, when chatting with Claude on the web, it can reach into your

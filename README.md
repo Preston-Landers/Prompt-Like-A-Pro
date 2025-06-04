@@ -67,7 +67,8 @@ Some brief notes about the major cloud providers of AI.
   model.
 
 - [DeepSeek](https://www.deepseek.com) is perhaps most notable for releasing
-  "open-source" models available for local AI (in distilled or cut-down form).
+  "[open source](#open-source)" models available for local AI (in distilled or
+  cut-down form).
 
 My current personal recommendation, especially if you're enough of a power user
 to pay for premium access, is:
@@ -88,6 +89,29 @@ this guide.
 ## Prompting tips
 
 A beginner guide to prompt engineering, with a few spicy bits.
+
+### Contents
+
+- [**Never** compose inside the chat window](#never-compose-inside-the-chat-window)
+- [Start a new chat](#start-a-new-chat)
+- [Ask for a summary](#ask-for-a-summary)
+- [Paste an image or a screenshot (or three)](#paste-an-image-or-a-screenshot-or-three)
+- [Ask for help crafting a prompt](#ask-for-help-crafting-a-prompt)
+- [Bounce results between different models](#bounce-results-between-different-models)
+- [Iterate and refine](#iterate-and-refine)
+- [Break complex tasks down](#break-complex-tasks-down)
+- [Trust, but verify](#trust-but-verify)
+- [Don't get glazed](#dont-get-glazed)
+- [Be very, very explicit about what you want](#be-very-very-explicit-about-what-you-want)
+- [Use the model to critique itself](#use-the-model-to-critique-itself)
+- [Craft a persona for the model](#craft-a-persona-for-the-model)
+- [Use negative constraints](#use-negative-constraints)
+- [Don't forget to have fun](#dont-forget-to-have-fun)
+- [Think about Theory of Mind](#think-about-theory-of-mind)
+- [Think about which model you're using](#think-about-which-model-youre-using)
+- [Vibe coding - all the rage these days](#vibe-coding---all-the-rage-these-days)
+- [Deep dive into tools](#deep-dive-into-tools)
+- [Terminology notes](#terminology-notes)
 
 ### **Never** compose inside the chat window
 
@@ -582,7 +606,7 @@ in some areas - hopefully it is obvious which is which.
   getting fixated on certain lines of thinking in a thread, reducing the range
   of possible future states.
 
-### **Efficiency and Deployment**
+### Efficiency and Deployment
 
 - **Quantization**: Reducing the precision of (compressing) model weights and
   activations to decrease memory usage and improve speed (e.g., FP8, FP4
@@ -624,7 +648,7 @@ in some areas - hopefully it is obvious which is which.
   and other issues by simulating attacks or adversarial scenarios. This is often
   done to improve the robustness and safety of AI models.
 
-### **Advanced Techniques and Frameworks**
+### Advanced Techniques and Frameworks
 
 - **Mixture of Experts (MoE)**: an LLM architecture concept where only relevant
   "expert" sub-networks activate for a given input, making large models more
@@ -649,7 +673,7 @@ in some areas - hopefully it is obvious which is which.
   models are generally something of a "black box" and it can be difficult to
   trace exactly how a model arrived at a particular output.
 
-### **Tools and Platforms**
+### Tools and Platforms
 
 - <a id="local-llm"></a>**Local LLM**: running a language model on your own
   hardware, rather than using a cloud provider. This can be done with tools like
@@ -687,10 +711,11 @@ in some areas - hopefully it is obvious which is which.
   optimized for CPUs and edge devices. LM Studio uses this to run models on your
   devices.
 
-- **Open Source**: A model is generally considered "open source" if it's freely
-  available for download. Some of the most notable examples are Meta's LLaMA
-  (Large Language Model Meta AI) models, DeepSeek R1, and others that are
-  typically variations or distillations of those, including Qwen and Gemma.
+- <a id="open-source"></a>**Open Source**: A model is generally considered "open
+  source" if it's freely available for download. Some of the most notable
+  examples are Meta's LLaMA (Large Language Model Meta AI) models, DeepSeek R1,
+  and others that are typically variations or distillations of those, including
+  Qwen and Gemma.
 
   Others have debated whether to apply the term "open source" to these free
   models, because without the complete set of original training data (usually in

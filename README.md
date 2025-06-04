@@ -33,8 +33,8 @@ become an active director of the conversation.
 - **Manage Your Workspace**: Always
   [write prompts in a text editor](#never-compose-inside-the-chat-window) first
   to avoid losing your work. Start a [fresh chat](#start-a-new-chat) for each
-  new problem to keep the model focused and avoid context window weirdness
-  ("attractor states"). When a chat gets long, ask the model to
+  new problem to keep the model focused and avoid context window weirdness and
+  "attractor states". When a chat gets long, ask the model to
   [summarize the key points](#ask-for-a-summary) before you start a new one.
 
 - **Iterate and Cross-Examine**: Treat it like a real conversation. The first
@@ -82,8 +82,8 @@ to pay for premium access, is:
 Of course, there is always the option to "[Go Local](#local-llm)" with
 [LM Studio](https://lmstudio.ai/) or similar packages. Your capabilities here
 obviously depend on the hardware you have available, but you might be surprised
-what small models are capable of. Running local AI is outside the scope of this
-guide.
+at what small models are capable of. Running local AI is outside the scope of
+this guide.
 
 ## Prompting tips
 
@@ -120,7 +120,7 @@ think about the current problem from a fresh perspective.
 
 When you get deep into a complex chat and the context window is filling up, you
 can also start to get more ... unusual results. Commonly known as
-"hallucinations", these can often extend beyond mere "mistakes" to randomly
+"hallucinations", these can often extend beyond mere mistakes to randomly
 inserting Hindi or Chinese words, or completely nonsensical gibberish, or system
 prompt instructions leaking, or chains of thought in "thinking models" going off
 the rails, or other oddities.
@@ -137,6 +137,12 @@ help when you [start a new chat](#start-a-new-chat), or when you want to present
 the results of your conversation to another model for continued analysis. Often
 this is useful even if you plan to continue the current chat for now.
 
+### Paste an image or a screenshot (or three)
+
+Often a picture is worth a thousand words. If you have a screenshot of an error
+message, or a diagram of a system, paste it in. The model can understand images
+and screenshots, and will use them to help answer your question.
+
 ### Ask for help crafting a prompt
 
 The structure and content of your prompt is extremely important. Because LLMs
@@ -152,13 +158,8 @@ can help you work out a good prompt for a more advanced model.
 
 Keep track of your best prompts in a file or folder using a text editor, and
 iterate on and refine them over time. You can also use a prompt template to help
-you structure your prompts.
-
-### Paste an image or a screenshot (or three)
-
-Often a picture is worth a thousand words. If you have a screenshot of an error
-message, or a diagram of a system, paste it in. The model can understand images
-and screenshots, and will use them to help answer your question.
+you structure your prompts, or to provide guidance for a model to generate
+prompts based on it.
 
 ### Bounce results between different models
 
@@ -463,11 +464,11 @@ in some areas - hopefully it is obvious which is which.
 - <a id="context-window"></a>**Context window**: The amount of text (in tokens)
   that an LLM can "remember" or actively work with at one time. This includes
   both your input and the model's responses - everything the model can "see" in
-  the current conversation. Once you hit this limit, the model starts
-  "forgetting" the earliest parts of the conversation to make room for new
-  content. If the context window is exceeded, earlier parts of the conversation
-  may be forgotten, ignored, or garbled, which is why you should often
-  [start a new chat](#start-a-new-chat).
+  the current conversation. Once you start to approach this limit, the model
+  starts "forgetting" the earliest parts of the conversation to make room for
+  new content. If the context window is less than the total size of the chat,
+  earlier parts of the conversation may be forgotten, ignored, or garbled, which
+  is why you should often [start a new chat](#start-a-new-chat).
 
 - **Embeddings**: Dense vector representations of text that capture semantic
   meaning, used as input to LLMs.
@@ -513,7 +514,6 @@ in some areas - hopefully it is obvious which is which.
 
 - **Frontier models**: The latest and most advanced (and most expensive) LLMs,
   often with hundreds of billions of parameters and cutting-edge capabilities.
-  Generally, these are the most expensive to use.
 
 - **Agentic**: AI acting autonomously to accomplish complex, multi-step tasks
   without constant human guidance. This goes beyond simple question-answering to

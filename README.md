@@ -753,3 +753,7 @@ I somehow hallucinated the Three.js reference (that's quite meta, given your
 guide discusses hallucinations). And I can't find that "extra the" either when I
 look back at the text. This is a perfect example of what you warn about in your
 guide - LLMs can be confidently wrong!
+
+_[Editor's note: quite so, and clearly, Three.js is an attractor state produced
+by Claude's training, as it's a popular framework for the "check out this
+one-shot" crowd.]_

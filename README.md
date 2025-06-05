@@ -337,7 +337,9 @@ readable. Don't change the logic of the calculate_total function."
 LLMs are a powerful tool, but they are also a lot of fun to use. Don't be afraid
 to experiment, try new things, and see what works for you. The more you use
 them, the better you will get at crafting prompts and getting the results you
-want.
+want. For example, even in a dry technical discussion, making humorous
+suggestions like "engage ULTRA THINK mode" can sometimes trigger non-linear
+thinking patterns that produce more interesting results.
 
 For the less ethically inclined, there has been debate about whether the carrot
 or the stick approach tends to produce better results. There have been studies

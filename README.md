@@ -63,7 +63,7 @@ Some brief notes about the major cloud providers of AI.
   with two main models: Sonnet and Opus. Opus is the larger model in terms of
   parameters (and more expensive).
 
-- [Google Gemini](https://gemini.google.com) also another leading frontier
+- [Google Gemini](https://gemini.google.com) is also another leading frontier
   model.
 
 - [DeepSeek](https://www.deepseek.com) is perhaps most notable for releasing
@@ -229,21 +229,21 @@ assumptions or unstated facts. Consider whether
 
 ### Don't get glazed
 
-LLMs _want_ to give you an answer - any answer, ideally a correct one, but any
-will do. They also _want_ you to like and enjoy working with them and come back
-and do so again in the future. This is a reflection of how they were trained,
+LLMs _want_ to give you an answer - ideally a correct one, but any answer will
+do. They also _want_ you to like and enjoy working with them and come back and
+do so again in the future. This is a reflection of how they were trained,
 including by reinforcement learning with human feedback (RLHF). This has the
 following consequences:
 
 - The model is reluctant to just throw up its hands and say "I don't know".
 
 - The model is likely to praise your thoughts and ideas as more unique and
-  insightful that they may actually be.
+  insightful than they may actually be.
 
 - A recent version of ChatGPT was so notorious for this that they had to roll
   back an update.
 
-- If you are really looking for unbiased genuine feedback for an idea or
+- If you truly are looking for unbiased or even harsh feedback for an idea or
   concept, _be sure to tell the model that_, or you are likely to get a lot of
   unearned validation.
 
@@ -381,7 +381,11 @@ reasonably trained LLM does not need to "look up" the answer to "Who won the
 Battle of Hastings in 1066?" because the concepts of "Battle of Hastings" and
 "1066" produce a vector (a mathematical representation) in the model's internal
 space that points to the same area as concepts like "William the Conqueror" and
-"Normans".
+"Normans". You might ask how likely it is to hallucinate an exactly wrong answer
+here like "King Harold", but that's where the
+[attention mechanism](#transformer) brings in the word "won" from the prompt and
+focuses the transformer on comparing candidates for the answer to the "winning"
+concept.
 
 In reality, a common knowledge question like the 1066 one will come up often
 enough in training data that a sufficiently powerful model can, in effect,
@@ -399,7 +403,7 @@ the same question twice, you might get a bit of a different answer each time.
 Different models have different capabilities, and some are better suited for
 certain tasks than others. For example, Claude Opus 4 with "Extended Thinking"
 is powerful for complex coding tasks, but hits resource limits very quickly
-(i.e., gets expensive fast). Claude Sonnet 4 is a very, good model and returns
+(i.e., gets expensive fast). Claude Sonnet 4 is a very good model and returns
 results much more quickly than Opus 4, and can handle most tasks fine.
 
 You can always ask a more advanced model for help with the core problem, and
@@ -433,7 +437,7 @@ There are all sorts of advanced topics not covered here, such as RAG, Model
 Context Protocol (MCP), Local LLMs, Claude Code, and more. Start to explore
 these as you get more comfortable with the basics of prompting and using LLMs.
 
-If you are developer starting out with tool use, my simplest recommendation is
+If you are a developer starting out with tool use, my simplest recommendation is
 to start with GitHub Copilot. There are at least 3 key ways you can work with it
 or similar tools:
 
@@ -464,20 +468,18 @@ in some areas - hopefully it is obvious which is which.
   of tokens per second (TPS) is a common measure of model efficiency. One token
   very roughly corresponds to about 0.75 words in English.
 
-- **Transformer Architecture**: The core neural network architecture behind most
-  LLMs, enabling efficient text processing and generation. This is the "T" in
-  ChatGPT.
-
-- **Attention Mechanism**: A key component of Transformers that allows models to
-  focus on relevant parts of the input text when processing each word or token.
-  Think of it as the model asking "which previous words are most important for
-  understanding this current word?" This is what enables much of the
-  "understanding" we see in modern LLMs.
-
-  - This lets the model connect words that are far apart in a sentence like "The
-    cat that was sleeping on the warm sunny windowsill was black" - connecting
-    "cat" to "was". Before attention, models had trouble with these long-range
-    dependencies.
+- <a id="transformer"></a>**Transformer Architecture**: The core neural network
+  architecture behind most modern LLMs, introduced in 2017's
+  ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) paper. The key
+  innovation is that Transformers can process all words in a text simultaneously
+  (rather than one by one) by using an "attention mechanism" - a way for the
+  model to figure out which words are most important for understanding each
+  other word. Think of reading a sentence like "The cat that was sleeping on the
+  warm sunny windowsill was black" - the attention mechanism lets the model
+  connect "cat" with "was black" even though they're far apart. This ability to
+  see relationships between all words at once, regardless of distance, is what
+  makes Transformers so powerful for understanding and generating text. This is
+  the "T" in ChatGPT.
 
 - **Parameters**: The learned weights and biases in a neural network,
   representing the model's "knowledge." In concrete terms, this is just a big
@@ -540,7 +542,7 @@ in some areas - hopefully it is obvious which is which.
 - **Frontier models**: The latest and most advanced (and most expensive) LLMs,
   often with hundreds of billions of parameters and cutting-edge capabilities.
   AI researchers may also use this term to describe the most capable models that
-  might post novel risks or whose capabilities are less well understood.
+  might pose novel risks or whose capabilities are less well understood.
 
 - **Agentic**: AI acting autonomously to accomplish complex, multi-step tasks
   without constant human guidance. This goes beyond simple question-answering to
@@ -698,11 +700,11 @@ in some areas - hopefully it is obvious which is which.
   - For example, when chatting with Claude on the web, it can reach into your
     code editor (with your permission) and perform actions like searching for or
     changing text.
-  - Other companies are also starting to adopt MCP a standard for model tool
+  - Other companies are also starting to adopt MCP as a standard for model tool
     use.
 
-- **Cursor**: a popular AI-focused code editor (a fork of VS Code) popular with
-  vibe coders.
+- **Cursor**: an AI-focused code editor (a fork of VS Code) popular with vibe
+  coders.
 
 - **Hugging Face**: A platform for sharing, fine-tuning, and deploying LLMs and
   other AI models.
@@ -745,7 +747,7 @@ I'm near the end of this.
 
 **Claude said**: You're absolutely right - I apologize for those errors!
 
-_[Editors note: name a more iconic Claude line.]_
+_[Editor's note: name a more iconic Claude line.]_
 
 I somehow hallucinated the Three.js reference (that's quite meta, given your
 guide discusses hallucinations). And I can't find that "extra the" either when I

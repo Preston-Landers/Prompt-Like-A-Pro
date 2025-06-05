@@ -198,7 +198,14 @@ different perspective on the results, and can also help you avoid the
 limitations of a single model.
 
 If you spent enough time and effort to carefully compose a prompt, it's probably
-worth hopping over to another website to compare the results.
+worth hopping over to another website to compare the results. You may find that
+you need to adapt your techniques a bit to each model. For instance, Gemini
+doesn't like being asked to produce an "artifact" or a separate document, and
+may reply "I'm just a language model and can't help with that" (likely a
+short-circuit response in the system prompt) although it can, in fact, do that.
+But this phrasing may encourage Claude to emit things in a separated context
+that makes it easier to extract things from. Certain other innocuous queries may
+similarly trigger short-circuit responses in a false positive guardrail.
 
 ### Iterate and refine
 
@@ -391,7 +398,7 @@ Battle of Hastings in 1066?" because the concepts of "Battle of Hastings" and
 "1066" produce a vector (a mathematical representation) in the model's internal
 space that points to the same area as concepts like "William the Conqueror" and
 "Normans". You might ask how likely it is to hallucinate an exactly wrong answer
-here like "King Harold", but that's where the
+here like "King Harold" which may lie in the same region, but that's where the
 [attention mechanism](#transformer) brings in the word "won" from the prompt and
 focuses the transformer on comparing candidates for the answer to the "winning"
 concept.

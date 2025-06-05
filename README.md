@@ -1,14 +1,18 @@
 # Prompt Like a Pro
 
+By Preston Landers. Feel free to share and reuse per the
+[copyright license](./LICENSE). I would appreciate a link back or credit.
+
 This is my attempt at distilling what I've learned about interacting with AIs
 (mainly Large Language Models or LLMs) and some of my personal notes on
 terminology and other concepts. Although I mainly use AI for coding and software
 architecture, network debugging, etc., this advice should be broadly applicable
 to most people who are trying to move beyond simple "how do I do X?" type
-prompts and really unlock more power.
+prompts and really unlock more power. This information is up to date as of
+June, 2025.
 
-If you just want a quick summary, read the [TL;DR](#tldr). You can also get a
-quick overview of some major
+If you just want a quick summary, read the [TL;DR](#tldr-too-long-didnt-read).
+You can also get a quick overview of some major
 [cloud AI providers](#about-the-major-cloud-providers).
 
 The [prompting tips](#prompting-tips) are in approximate order from more general
@@ -17,7 +21,7 @@ and introductory to more intermediate and advanced usage.
 There is a section of [terminology and definitions](#terminology-notes) at the
 end.
 
-## TL;DR
+## TL;DR (Too Long; Didn't Read)
 
 To get the most out of any LLM, you need to move beyond simple questions and
 become an active director of the conversation.
@@ -192,6 +196,9 @@ findings (and any relevant background info) to another totally different model,
 e.g. going from Claude to Gemini or DeepSeek, etc. This can help you get a
 different perspective on the results, and can also help you avoid the
 limitations of a single model.
+
+If you spent enough time and effort to carefully compose a prompt, it's probably
+worth hopping over to another website to compare the results.
 
 ### Iterate and refine
 

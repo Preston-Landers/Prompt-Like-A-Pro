@@ -683,11 +683,11 @@ in some areas - hopefully it is obvious which is which.
   mode of LLM use where the model expends tokens in a preliminary reasoning or
   "thinking" step where it plans out its response. Often you can view the
   thoughts, though for most cloud models, you are seeing a filtered / summarized
-  version.
+  version. This "warmup" helps avoid the need for the first output token to make
+  perfect semantic sense for a final correct answer.
 
-  - For example, Claude Opus and Sonnet models both have an optional "extended
-    thinking" mode that will slow down the response, but might lead to better
-    outputs.
+  - For example, Claude Opus and Sonnet models both have an "extended thinking"
+    option that will slow down the response, but might lead to better outputs.
 
 - **Reinforcement Learning from Human Feedback (RLHF)**: A technique to
   fine-tune models using human feedback to align outputs with human preferences.

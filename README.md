@@ -539,7 +539,8 @@ on. A well trained LLM does not need to "look up" the answer to "**Who won the
 Battle of Hastings in 1066?**" like a SQL query:
 
 ```sql
-SELECT victor FROM battles WHERE place = 'Hastings' AND year = 1066;
+SELECT victor FROM battles 
+  WHERE place = 'Hastings' AND year = 1066;
 ```
 
 Instead, the concepts of (neural pathways related to) "Battle of Hastings" and

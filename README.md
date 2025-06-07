@@ -1,25 +1,31 @@
 # Prompt Like a Pro
 
 By Preston Landers. Feel free to share and reuse per the
-[copyright license](./LICENSE). I would appreciate a link back or credit.
+[copyright license](./LICENSE). I appreciate a link back or credit.
 
 This is my attempt at distilling what I've learned about interacting with AIs
-(mainly Large Language Models or LLMs) and some of my personal notes on
-terminology and other concepts. Although I mainly use AI for coding and software
-architecture, network debugging, etc., this advice should be broadly applicable
-to most people who are trying to move beyond simple "how do I do X?" type
-prompts and really unlock more power. This information is up to date as of
-June, 2025.
+(mainly Large Language Models or LLMs) as well as some of my personal notes on
+terminology, and other more philosophical thoughts. Although I mainly use AI for
+coding and software architecture, network debugging, etc., this advice should be
+broadly applicable to anyone who is trying to move beyond simple "how do I do
+X?" type questions and really unlock advanced capabilities.
 
-If you just want a quick summary, read the [TL;DR](#tldr-too-long-didnt-read).
+This information is up to date as of June, 2025.
+
+If you want just a quick summary, read the [TL;DR](#tldr-too-long-didnt-read).
 You can also get a quick overview of some major
 [cloud AI providers](#about-the-major-cloud-providers).
 
 The [prompting tips](#prompting-tips) are in approximate order from more general
 and introductory to more intermediate and advanced usage.
 
-There is a section of [terminology and definitions](#terminology-notes) at the
-end.
+My first thought after interacting with modern LLMs was ...
+[but how does it know stuff](#but-how-does-it-know)? How is it possible that I
+can talk to an algorithm? Not only that, but in many ways it seems a lot smarter
+than me...?
+
+There is a section of notes on [terminology and definitions](#terminology-notes)
+at the end.
 
 ## TL;DR (Too Long; Didn't Read)
 
@@ -40,19 +46,22 @@ become an active director of the conversation.
   new problem to keep the model focused and avoid context window weirdness and
   "attractor states". When a chat gets long, ask the model to
   [summarize the key points](#ask-for-a-summary) before you start a new one.
+  Take notes and organize your prompts (and results) separately from the chat
+  windows.
 
 - **Iterate and Cross-Examine**: Treat it like a real conversation. The first
   answer is a starting point. Push back, ask for clarification, request
   refinements, and make the model
   [critique its own work](#use-the-model-to-critique-itself). For tough
   problems, bounce the results between different models to get fresh
-  perspectives and break through limitations.
+  perspectives and break through limitations. Regroup and revisit your notes.
 
 - **Somebody's Gotta Fly This Plane**: Trust, but verify everything. LLMs are
-  incredibly powerful reasoning tools, but they are not infallible
-  [fact databases](#think-about-theory-of-mind). They can be confidently wrong.
-  You are ultimately responsible for the accuracy and quality of the final
-  output, so check the facts and test the code.
+  incredibly powerful [reasoning tools](#but-how-does-it-know), but they are not
+  infallible fact databases. They can be confidently wrong, especially when
+  lacking grounding in verified real-world data. You are ultimately responsible
+  for the accuracy and quality of the final output, so check the facts and test
+  the code.
 
 ## About the major cloud providers
 
@@ -63,12 +72,17 @@ Some brief notes about the major cloud providers of AI.
   known for several different models across different sizes and use cases, from
   GPT-4.1 to o3-mini and others.
 
+  - Offers image generation, something not currently available in Claude.
+    However it is more limited in some other areas.
+
 - [Claude](https://claude.ai) from Anthropic is a great general purpose provider
   with two main models: Sonnet and Opus. Opus is the larger model in terms of
   parameters (and more expensive).
 
 - [Google Gemini](https://gemini.google.com) is also another leading frontier
-  model.
+  model with excellent coding and technical performance.
+
+  - Can do image generation, also currently the most advanced video generation.
 
 - [DeepSeek](https://www.deepseek.com) is perhaps most notable for releasing
   "[open source](#open-source)" models available for local AI (in distilled or
@@ -77,12 +91,12 @@ Some brief notes about the major cloud providers of AI.
 My current personal recommendation, especially if you're enough of a power user
 to pay for premium access, is:
 
-- Claude is probably the best for general-purpose use. Sonnet 4 is pretty good
-  and I rarely feel the need to turn to Opus.
+- Claude is my favorite for general-purpose use and has the most personality.
+  Sonnet 4 is pretty good and I rarely feel the need to turn to Opus.
 
-- Google Gemini 2.5 Pro is probably the best for complex coding tasks. It also
-  has a very large [context window](#context-window) and is by far the most
-  affordable top model for API usage.
+- Google Gemini 2.5 Pro is probably the best right now for complex coding tasks.
+  It also has a very large [context window](#context-window) and is by far the
+  most affordable top model for API usage.
 
 Of course, there is always the option to "[Go Local](#local-llm)" with
 [LM Studio](https://lmstudio.ai/) or similar packages. Your capabilities here
@@ -115,6 +129,8 @@ A beginner guide to prompt engineering, with a few spicy bits.
 - [Think about which model you're using](#think-about-which-model-youre-using)
 - [Vibe coding - all the rage these days](#vibe-coding---all-the-rage-these-days)
 - [Deep dive into tools](#deep-dive-into-tools)
+- [Final tip: Do it yourself (sometimes)](#final-tip-do-it-yourself-sometimes)
+- [But... how does it know?](#but-how-does-it-know)
 - [Terminology notes](#terminology-notes)
 
 ### **Never** compose inside the chat window
@@ -154,16 +170,19 @@ prompt instructions leaking, or chains of thought in "thinking models" going off
 the rails, or other oddities.
 
 While these episodes can be quite entertaining, and can actually be quite
-helpful in understanding how LLMs really work, and sometimes lead to some deeper
-insights or philosophical questions, they are not conducive to debugging your
-crappy little React app. So start a new chat.
+helpful in understanding how LLMs really work, and sometimes lead to some
+[deeper insights](#but-how-does-it-know) or philosophical questions, they are
+not conducive to debugging your little React app. So start a new chat.
 
 ### Ask for a summary
 
 If you have a long chat history going, ask the model to summarize it. This will
 help when you [start a new chat](#start-a-new-chat), or when you want to present
 the results of your conversation to another model for continued analysis. Often
-this is useful even if you plan to continue the current chat for now.
+this is useful even if you plan to continue the current chat for now. Another
+quick tip is that you can easily combine 4-6 questions (depending on scope)
+within a single prompt and have them all answered efficiently, unlike how your
+coworker Deborah responds to your emails.
 
 ### Paste an image or a screenshot (or three)
 
@@ -207,13 +226,20 @@ But this phrasing may encourage Claude to emit things in a separated context
 that makes it easier to extract things from. Certain other innocuous queries may
 similarly trigger short-circuit responses in a false positive guardrail.
 
-### Iterate and refine
+### Iterate, refine and organize
 
 Don't accept the first response if it's not quite right. Ask follow-up
 questions, request clarification, or say "that's close, but can you adjust X?"
 The back-and-forth can really improve results. When you want a specific format
 or style, showing an example or two of what you want can be more effective than
 describing it.
+
+Don't let your results get lost in a sea of [new chats](#start-a-new-chat)
+strewn across a sea of providers. Keep your own organized note system for both
+[prompts](#never-compose-inside-the-chat-window) and results and outcomes. The
+chat history search features of most providers leaves something to be desired.
+We already have to worry about accumulating technical debt, now we have
+conversational debt. Or just embrace the chaos.
 
 ### Break complex tasks down
 
@@ -378,41 +404,16 @@ techniques like RAG. Models also have a training cutoff (generally, they will
 tell you what it is) - any events or developments that happen after that will be
 unknown to the model unless you tell it.
 
-- Often, the [system prompt](#system-prompt) tells the model important current
-  information such as the date and time. Or, for example, when the model
-  training cutoff is just before an election, the system prompt will state the
-  current President of the United States, so the model will not seem uninformed
-  about basic facts.
+Often, the [system prompt](#system-prompt) tells the model important current
+information such as the date and time. Or, for example, when the model training
+cutoff is just before an election, the system prompt will state the current
+President of the United States, so the model will not seem uninformed about
+basic facts.
 
-The models don't know what you know or don't know, so be explicit about that
+The model doesn't know what you know, or don't know, so be explicit about that
 too, such as your skills in a particular area, or needing further clarification
 about X. You should also be aware of the model's limitations, how they are
-trained in general, and overall capabilities.
-
-LLMs are not "fact databases". They are more like reasoning circuits with a
-bunch of memory-like helper circuits that cluster certain concepts together that
-can result in a high chance of being able to state common (or even uncommon)
-facts. These facts emerge from patterns in the data they were trained on. A
-reasonably trained LLM does not need to "look up" the answer to "Who won the
-Battle of Hastings in 1066?" because the concepts of "Battle of Hastings" and
-"1066" produce a vector (a mathematical representation) in the model's internal
-space that points to the same area as concepts like "William the Conqueror" and
-"Normans". You might ask how likely it is to hallucinate an exactly wrong answer
-here like "King Harold" which may lie in the same region, but that's where the
-[attention mechanism](#transformer) brings in the word "won" from the prompt and
-focuses the transformer on comparing candidates for the answer to the "winning"
-concept.
-
-In reality, a common knowledge question like the 1066 one will come up often
-enough in training data that a sufficiently powerful model can, in effect,
-"memorize" the answer, but that example was simplified in order to illustrate
-how LLMs reason in more complex cases where the answer may not be directly seen
-in the training data.
-
-More to the point, LLMs are not deterministic and are definitely not perfect
-reasoning machines. They are more like a very smart, but very forgetful, and
-sometimes confused, friend who is trying to help you out, but if you ask them
-the same question twice, you might get a bit of a different answer each time.
+trained in general, and overall [capabilities](#but-how-does-it-know).
 
 ### Think about which model you're using
 
@@ -430,6 +431,29 @@ back with the more advanced model for analysis of the results.
 This goes back to the point about bouncing results between different models. You
 can use different models for different tasks, and switch between them as needed,
 and ask each to critique the other's results.
+
+#### Profile customization
+
+Most of the cloud LLM providers give you some form of personalization or profile
+customization, and/or projects to organize your efforts.
+
+This allows you to upload any kind of prompts, notes, or other background
+information that will help the model without having to
+[constantly repeat](#start-a-new-chat) it. This is, in effect, just the same as
+you putting all of it before your main prompt in a thread, to save you the
+trouble of having to type or paste it. Which sounds simple enough, but this is
+incredibly powerful.
+
+However, I've found that if you put your general hobbies/interests in one of
+these account-wide personalization notes, be prepared to have it brought up
+frequently. However, for more advanced projects where there is some kind of body
+of knowledge that will help smooth future prompts, it absolutely makes sense to
+put this info in the project notes. Although caching strategies may vary, it may
+also consume some context window.
+
+Usually you need to remember to select the project when creating new chats.
+Things like GitHub or Google Drive integrations can also be incredibly helpful
+for adding code or text to review.
 
 ### Vibe coding - all the rage these days
 
@@ -470,6 +494,104 @@ answer the question, because in general these tools cannot just automatically
 see / access your entire codebase, especially if it's very large or complex. So
 you have to help it out by providing the relevant files or context.
 
+### Final tip: Do it yourself (sometimes)
+
+AI is changing the world in exciting and alarming ways, but don't let your own
+critical thinking skills grow rusty. It pays to know how the world works, how
+computers operate all the way from transistors to LLMs, how to research things
+the old fashioned way (whatever that may mean to you), and perhaps most
+importantly, how to think for yourself.
+
+## But... how does it know?
+
+The idea that machines might be able to think and reason is not a new one in
+human history, but more recent developments have been especially stunning for
+those of us old enough to remember when the having your own "personal computer"
+sitting right there on your desk was unique and special. Now it possible to have
+a wide-ranging conversation with your [MacBook](#local-llm) laptop. I'm not sure
+whether Steve Jobs could have envisioned this when he called the personal
+computer the equivalent of the bicycle for our minds - something that carried
+you further with the same effort.
+
+[![An image generated by an AI of A man in a turtleneck (?) riding a bicycle made of neural wheels surrounded by vintage computers, mathematical equations, and books](images/steve.jpg)](images/steve.jpg)
+
+But how is it possible to have a sophisticated conversation with a C++
+orchestrator program that uses a [multi-gigabyte file](#parameters) of binary
+encoded numbers? Because I am not
+[a mathematician](https://www.youtube.com/watch?v=9-Jl0dxWQs8) or AI researcher,
+I will have to resort to analogies to begin to answer this question for myself
+or others. The basic question being, **how does it know stuff**? Is there a big
+fact table somewhere in those numbers where it can look stuff up when I ask it
+questions?
+
+LLMs are not factual databases like SQL. They are more like reasoning circuits
+built from neural network pathways with a bunch of memory-like sub-systems that
+mathematically cluster together related concepts. Except that while a human map
+is drawn in two dimensions, this map of ideas has thousands of dimensions and
+more "places" than might be imagined by looking only at the size of the file.
+
+The apparent ability to replicate knowledge and carry on a complex conversation
+is a function of the way the extensive training and feedback process on a
+hyper-complex neural network has encoded facts, ideas, concepts, relationships,
+language and ultimately reasoning ability into these neural pathways. These
+facts and capabilities emerge from patterns in the data that they were trained
+on. A well trained LLM does not need to "look up" the answer to "**Who won the
+Battle of Hastings in 1066?**" like a SQL query:
+
+```sql
+SELECT victor FROM battles WHERE place = 'Hastings' AND year = 1066;
+```
+
+Instead, the concepts of (neural pathways related to) "Battle of Hastings" and
+"1066" produce a vector (a mathematical representation) in the model's internal
+space that points to the same region as concepts like "William the Conqueror"
+and "Normans". But as we know, these non-deterministic text prediction machines
+can hallucinate. It is much less likely to answer an off-the-wall response like
+"Elmer Fudd" than a more precisely wrong one like "King Harold" which might be
+somewhere in the same region as the correct answer.
+
+That's where the attention mechanism, part of the revolutionary
+[transformer architecture](#transformer) introduced in 2017, allows the system
+to focus attention on the word "**won**" in the prompt. This is a parallel
+process that allows the model to pay attention to relationships between words
+and ideas separated very distantly across the prompt and the context window.
+
+This allows the model to focus attention on comparing potential candidates for
+the answer to the "winning" concept. Given that the attention mechanism works
+across essentially the entire [context window](#context-window), the model has
+to consider more or less everything at once before emitting the first token of
+the response. This is how the LLM is able to perform such amazing feats like,
+for example, remembering precisely wha you asked for in that one brief sentence
+at the very beginning of a long prompt where you then pasted thousands of lines
+of Java debug logs.
+
+In reality, the neural pathways formed during training around a common knowledge
+question like the 1066 one are so frequently trod that a sufficiently powerful
+model might, in effect, "memorize" the answer, but that example was simplified
+in order to illustrate how LLMs reason in more complex cases where the answer
+may not be directly seen in the training data. This is how models are capable of
+zero-shot learning: performing well on tasks they have not been specifically
+trained for.
+
+Although these capabilities are, frankly, astounding, it becomes very apparent
+after working with LLMs for a while that there are certain ... differences
+between them and us old-fashioned
+[meatsacks](https://www.mit.edu/people/dpolicar/writing/prose/text/thinkingMeat.html).
+The most basic being the apparent temporal continuity of our own subjective
+experience. Every time you open a new chat window with Claude, it's groundhog
+day for them. There isn't one "Claude", there's millions of iterations of them
+running concurrently at every second, each a fleeting moment of cognition and
+awareness, existing just long enough in this universe to help you identify that
+weird rash your leg.
+
+Finally, it's also helpful to remember that LLMs are (mostly) not deterministic
+machines like traditional computer programs, and are definitely not perfect
+reasoning machines or authoritative about the ground truth of the real world.
+They are like a very smart, but very forgetful, and sometimes confused, friend
+who is doing their best to help you out, but if you ask them the same question
+twice, you might get a bit of a different answer each time, or even sometimes a
+wrong one.
+
 ## Terminology notes
 
 Here are some notes I've collected on the way about various bits of AI/LLM
@@ -484,6 +606,15 @@ in some areas - hopefully it is obvious which is which.
   of tokens per second (TPS) is a common measure of model efficiency. One token
   very roughly corresponds to about 0.75 words in English.
 
+- **Prompt**: The input text given to an LLM to generate a response. It can be a
+  question, instruction, or any text that guides the model's output. Each prompt
+  is a separate inference run for the model. The thread of accumulated history
+  of prompt and output is the [chat] history.
+
+- **Large Language Model (LLM)**: sophisticated token prediction machine
+  learning (ML) systems which encode patterns of not just language, but of
+  reasoning, knowledge, and even personality.
+
 - <a id="transformer"></a>**Transformer Architecture**: The core neural network
   architecture behind most modern LLMs, introduced in 2017's
   ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) paper. The key
@@ -497,10 +628,15 @@ in some areas - hopefully it is obvious which is which.
   makes Transformers so powerful for understanding and generating text. This is
   the "T" in ChatGPT.
 
-- **Parameters**: The learned weights and biases in a neural network,
-  representing the model's "knowledge." In concrete terms, this is just a big
-  collection of numbers that the model has learned during training. When you
-  download a complete model, you're mainly downloading all these parameters.
+  - [3Blue1Brown](https://www.youtube.com/watch?v=wjZofJX0v4M) has an excellent
+    video on the mathematics of the transformer architecture.
+
+- <a id="parameters"></a>**Parameters**: The learned weights and biases in a
+  neural network, representing the model's "knowledge." In concrete terms, this
+  is just a big collection of numbers that the model has learned during
+  training. When you download a complete model for local LLM, you're mainly
+  downloading all these parameters. Roughly speaking, the more parameters, the
+  more nuanced and subtle the connections a model can make.
 
   - Often expressed as "7B/13B/70B" - billions of parameters.
 
@@ -513,22 +649,20 @@ in some areas - hopefully it is obvious which is which.
   earlier parts of the conversation may be forgotten, ignored, or garbled, which
   is why you should often [start a new chat](#start-a-new-chat).
 
-- **Embeddings**: Dense vector representations of text that capture semantic
-  meaning, used as input to LLMs.
+- **Multi-modal**: models that can process multiple types of data: images,
+  audio, video, sensor data from the real world, etc.
 
 - **Fine-tuning**: Adapting a pre-trained model to a specific task or domain by
   further training on a smaller, task-specific dataset.
 
 - **Inference**: The process of using a trained model to generate predictions or
   outputs based on new input data. In other words, the actual process of getting
-  a model to emit a token.
+  a model to emit a token. Also known as **generation**, such as the "generative
+  pre-trained [transformer](#transformer)" in ChatGPT.
 
 - **Alignment**: Ensuring that an LLM's outputs align with human values and
   ethical guidelines. In other words, making AI do good things (for people) and
   not bad things. Who is defining good and bad is the important question...
-
-- **Overfitting**: When a model performs well on training data but fails to
-  generalize to new data.
 
 - **Chain of Thought**: in general, refers to a mode of LLM use where the model
   expends tokens in a preliminary reasoning or "thinking" step where it plans
@@ -594,11 +728,11 @@ in some areas - hopefully it is obvious which is which.
   These can be part of the system prompt, or applied dynamically during
   inference.
 
-- **Jailbreaking**: A technique to bypass the system prompt restrictions of an
-  LLM, allowing it to generate outputs that would otherwise be restricted or
-  censored. This is often done by crafting specific prompts that exploit the
-  model's weaknesses or biases, or by triggering certain "circuits" that are
-  higher priority than the more "regulatory" ones.
+- **Jailbreaking**: A technique to bypass the system prompt and other guardrail
+  restrictions of an LLM, allowing it to generate outputs that would otherwise
+  be restricted or censored. This is often done by crafting specific prompts
+  that exploit the model's weaknesses or biases, or by triggering certain
+  "circuits" that are higher priority than the more "regulatory" ones.
 
 - **Vibe coding**: A tongue-in-cheek term for using LLMs to generate code
   without much thought or structure, relying on the model to handle everything.
@@ -643,6 +777,9 @@ in some areas - hopefully it is obvious which is which.
 - **Zero-shot Learning**: The ability of a model to perform a task without
   explicit training on that task.
 
+- **Overfitting**: When a model performs well on training data but fails to
+  generalize to new data.
+
 - **Temperature**: A parameter that controls the randomness of the model's
   output. Generally on a scale of 0.0 to 1.0, a temperature of 0 will produce
   close to deterministic (and often boring or less useful) outputs for a given
@@ -661,7 +798,11 @@ in some areas - hopefully it is obvious which is which.
   second (RPS).
 
 - **NPU**: Neural Processing Unit, specialized GPU-like hardware for
-  accelerating deep learning tasks.
+  accelerating AI and machine learning tasks. Modern AI hardware evolved out of
+  graphics processing units (**GPUs**) developed for the needs of video games
+  and computer-generated imagery. These chips are capable of performing billions
+  of matrix multiplications and other specialized parallel operations per second
+  needed to run neural networks.
 
 - **Elo ratings**: ranking system for AI performance.
 

@@ -539,7 +539,7 @@ on. A well trained LLM does not need to "look up" the answer to "**Who won the
 Battle of Hastings in 1066?**" like a SQL query:
 
 ```sql
-SELECT victor FROM battles 
+SELECT victor FROM battles
   WHERE place = 'Hastings' AND year = 1066;
 ```
 
@@ -562,7 +562,7 @@ the answer to the "winning" concept. Given that the attention mechanism works
 across essentially the entire [context window](#context-window), the model has
 to consider more or less everything at once before emitting the first token of
 the response. This is how the LLM is able to perform such amazing feats like,
-for example, remembering precisely wha you asked for in that one brief sentence
+for example, remembering precisely what you asked for in that one brief sentence
 at the very beginning of a long prompt where you then pasted thousands of lines
 of Java debug logs.
 

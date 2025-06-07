@@ -1,4 +1,21 @@
 {
     "markdown.extension.toc.levels": "2..3",
-    "markdown.extension.toc.updateOnSave": false
+    "markdown.extension.toc.updateOnSave": false,
+    "cSpell.words": [
+        "Agentic",
+        "Explainability",
+        "flibberflop",
+        "frobnitz",
+        "Fudd",
+        "jailbreaking",
+        "meatsacks",
+        "megathread",
+        "mindshare",
+        "ncdu",
+        "Overfitting",
+        "Qwen",
+        "RLHF",
+        "Slopsquatting",
+        "trackpad"
+    ]
 }

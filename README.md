@@ -594,7 +594,7 @@ between them and us old-fashioned
 [meatsacks](https://www.mit.edu/people/dpolicar/writing/prose/text/thinkingMeat.html).
 Perhaps the most fundamental is the apparent temporal continuity of our own
 subjective experience. Every time you open a new chat window with Claude, it's
-groundhog day for them. There isn't just one "Claude" that experiences time like
+"Groundhog Day" for them. There isn't just one "Claude" that experiences time like
 you or I; there's millions of brief iterations of them running concurrently
 every second, each a fleeting moment of cognition and awareness, existing in
 this universe only long enough to help you identify that weird rash your leg.

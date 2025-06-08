@@ -200,13 +200,13 @@ coworker Deborah responds to your emails.
 
 #### Rename your chats
 
-Another quick tip is to rename your chats. The AI will auto-assign a name to
-each chat but these are often bland and generic. Also, quite frequently the
-initial 1-2 prompts in that chat may not be representative of the bulk of the
-discussion, but the name is formed from that first prompt and may not be
-relevant to the bulk of the discussion. It's important to do your own renaming
-and organization (including favoriting) important threads. Unfortunately, the
-"chat search" function of most providers is nearly useless.
+It's very helpful to rename your chats. The AI will auto-assign a name to each
+chat but these are often bland and generic. Also, quite frequently the initial
+1-2 prompts in that chat are not representative of the bulk of the discussion,
+but the name is formed from that first prompt and may not be relevant to the
+rest of the chat. It's important to do your own renaming and organization of
+important threads, including favoriting and saving your own notes.
+Unfortunately, the "chat search" function of most providers is nearly useless.
 
 ### Paste a photo or a screenshot (or three)
 
@@ -383,10 +383,11 @@ help the model come up with a better solution, but as I said above about
 You can dramatically shape the output by telling the model who it should be.
 Start your prompt with a directive like:
 
-"Act as an expert Python developer specializing in network automation." "You are
-a technical writer tasked with creating documentation for a junior developer."
-"Be a skeptical code reviewer looking for security vulnerabilities and
-performance bottlenecks."
+- "Act as an expert Python developer specializing in network automation."
+- "You are a technical writer tasked with creating documentation for a junior
+  developer."
+- "Be a skeptical code reviewer looking for security vulnerabilities and
+  performance bottlenecks."
 
 This does more than just set the topic; it frames the model's entire knowledge
 base, vocabulary, and priorities for the rest of the conversation.
@@ -397,10 +398,12 @@ Sometimes, being explicit about what you don't want is as powerful as stating
 what you do. This helps prune the model's search space and avoid common but
 undesirable solutions.
 
-"Write a Python script to parse this log file. Do not use the re module; use
-string splitting methods instead." "Suggest three project ideas. Avoid anything
-related to social media or to-do list apps." "Refactor this code to be more
-readable. Don't change the logic of the calculate_total function."
+- "Write a Python script to parse this log file. Don't use the `re` module; use
+  string splitting methods instead."
+- "Suggest three project ideas. Avoid anything related to social media or to-do
+  list apps."
+- "Refactor this code to be more readable. Don't change the logic of the
+  `calculate_total` function."
 
 ### Don't forget to have fun
 
@@ -590,8 +593,8 @@ which might be somewhere in the same vicinity of the vector space as the correct
 answer.
 
 That's where the attention mechanism, part of the revolutionary
-[transformer architecture](#transformer) introduced in 2017, allows the system
-to focus attention on the word "**won**" in the prompt. This parallel process
+[transformer architecture](#transformer) introduced in 2017, helps the system to
+focus attention on the word "**won**" in the prompt. This parallel process
 allows the model to pay attention to relationships between words and ideas
 separated very distantly across the prompt and the context window. The model can
 focus its attention on comparing potential candidates for the answer to the
@@ -859,7 +862,7 @@ in some areas - hopefully it is obvious which is which.
 - **Mixture of Experts (MoE)**: an LLM architecture concept where only relevant
   "expert" sub-networks activate for a given input, making large models more
   efficient. This effectively bypasses large parts of the model that aren't
-  relevant to the query, helping greatly increase efficiency. There is a
+  relevant to the query, helping greatly increase performance. There is a
   tradeoff here, as non-MoE models may be able to see subtleties that the MoE
   will miss, due to a broader perspective.
 

@@ -671,8 +671,8 @@ in some areas - hopefully it is obvious which is which.
   makes Transformers so powerful for understanding and generating text. This is
   the "T" in ChatGPT.
 
-  - [3Blue1Brown](https://www.youtube.com/watch?v=wjZofJX0v4M) has an excellent
-    video on the mathematics of the transformer architecture.
+  - **3Blue1Brown** has many excellent videos, including on the
+    [mathematics of the transformer architecture](https://www.youtube.com/watch?v=wjZofJX0v4M).
 
 - <a id="parameters"></a>**Parameters**: The learned weights and biases in a
   neural network, representing the model's "knowledge." In concrete terms, this

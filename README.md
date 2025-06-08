@@ -6,11 +6,13 @@ By Preston Landers. Feel free to share and reuse per the
 [copyright license](./LICENSE). I appreciate a link back or credit.
 
 This is my attempt at distilling what I've learned about interacting with AIs
-(mainly Large Language Models or LLMs) as well as some of my personal notes on
-terminology, and other more philosophical thoughts. Although I mainly use AI for
-coding and software architecture, network debugging, etc., this advice should be
-broadly applicable to anyone who is trying to move beyond simple "how do I do
-X?" type questions and really unlock advanced capabilities.
+(mainly Large Language Models or LLMs) as well as other more philosophical
+thoughts towards the end, and a glossary of terms.
+
+Although I mainly use AI for coding and software architecture, network
+debugging, etc., this advice should be broadly applicable to anyone who is
+trying to move beyond simple "how do I do X?" type questions and really unlock
+advanced capabilities.
 
 This information is up to date as of June, 2025.
 
@@ -21,12 +23,13 @@ You can also get a quick overview of some major
 The [prompting tips](#prompting-tips) are in approximate order from more general
 and introductory to more intermediate and advanced usage.
 
-My first thought after interacting with modern LLMs was ...
+Following that is a deeper dive into how LLMs work. My first thought after
+interacting with modern LLMs was ...
 [but how does it know stuff](#but-how-does-it-know)? How is it possible that I
-can talk to an algorithm that in many ways seems a lot smarter than myself...?
+can talk to an algorithm that appears smarter than myself in many ways?
 
-There is a section of notes on [terminology and definitions](#terminology-notes)
-at the end.
+Finally, there is a glossary of my notes on
+[terminology and definitions](#terminology-notes).
 
 ## TL;DR (Too Long; Didn't Read)
 
@@ -111,28 +114,32 @@ A beginner guide to prompt engineering, with a few spicy bits.
 
 ### Contents
 
-- [**Never** compose inside the chat window](#never-compose-inside-the-chat-window)
-- [Start a new chat](#start-a-new-chat)
-- [Ask for a summary](#ask-for-a-summary)
-- [Paste an image or a screenshot (or three)](#paste-an-image-or-a-screenshot-or-three)
-- [Ask for help crafting a prompt](#ask-for-help-crafting-a-prompt)
-- [Bounce results between different models](#bounce-results-between-different-models)
-- [Iterate, refine and organize](#iterate-refine-and-organize)
-- [Break complex tasks down](#break-complex-tasks-down)
-- [Trust, but verify](#trust-but-verify)
-- [Don't get glazed](#dont-get-glazed)
-- [Be very, very explicit about what you want](#be-very-very-explicit-about-what-you-want)
-- [Use the model to critique itself](#use-the-model-to-critique-itself)
-- [Craft a persona for the model](#craft-a-persona-for-the-model)
-- [Use negative constraints](#use-negative-constraints)
-- [Don't forget to have fun](#dont-forget-to-have-fun)
-- [Think about Theory of Mind](#think-about-theory-of-mind)
-- [Think about which model you're using](#think-about-which-model-youre-using)
-- [Vibe coding - all the rage these days](#vibe-coding---all-the-rage-these-days)
-- [Deep dive into tools](#deep-dive-into-tools)
-- [Final tip: Do it yourself (sometimes)](#final-tip-do-it-yourself-sometimes)
-- [But... how does it know?](#but-how-does-it-know)
-- [Terminology notes](#terminology-notes)
+- Prompting tips
+  - [**Never** compose inside the chat window](#never-compose-inside-the-chat-window)
+  - [Start a new chat](#start-a-new-chat)
+    - [Hallucinations](#hallucinations)
+  - [Ask for a summary](#ask-for-a-summary)
+    - [Rename your chats](#rename-your-chats)
+  - [Paste a photo or a screenshot (or three)](#paste-a-photo-or-a-screenshot-or-three)
+  - [Ask for help crafting a prompt](#ask-for-help-crafting-a-prompt)
+  - [Bounce results between different models](#bounce-results-between-different-models)
+  - [Iterate, refine and organize](#iterate-refine-and-organize)
+  - [Break complex tasks down](#break-complex-tasks-down)
+  - [Trust, but verify](#trust-but-verify)
+  - [Don't get glazed](#dont-get-glazed)
+  - [Be very, very explicit about what you want](#be-very-very-explicit-about-what-you-want)
+  - [Use the model to critique itself](#use-the-model-to-critique-itself)
+  - [Craft a persona for the model](#craft-a-persona-for-the-model)
+  - [Use negative constraints](#use-negative-constraints)
+  - [Don't forget to have fun](#dont-forget-to-have-fun)
+  - [Think about Theory of Mind](#think-about-theory-of-mind)
+  - [Think about which model you're using](#think-about-which-model-youre-using)
+  - [Vibe coding - all the rage these days](#vibe-coding---all-the-rage-these-days)
+  - [Getting started with developer tools](#getting-started-with-developer-tools)
+  - [Final tip: Do it yourself (sometimes)](#final-tip-do-it-yourself-sometimes)
+- Deep dive
+  - [But... how does it know?](#but-how-does-it-know)
+  - [Terminology notes](#terminology-notes)
 
 ### **Never** compose inside the chat window
 
@@ -163,6 +170,8 @@ Models also tend to get focused on a certain line of thought, sometimes called
 line. If you start a new chat, you can reset the model's focus and get it to
 think about the current problem from a fresh perspective.
 
+#### Hallucinations
+
 When you get deep into a complex chat and the context window is filling up, you
 can also start to get more ... unusual results. Commonly known as
 "hallucinations", these can often extend beyond mere mistakes to randomly
@@ -175,6 +184,10 @@ helpful in understanding how LLMs really work, and sometimes lead to some
 [deeper insights](#but-how-does-it-know) or philosophical questions, they are
 not conducive to debugging your little React app. So start a new chat.
 
+If you're interested in an approachable video explanation of how LLMs think,
+including the mechanisms leading to hallucinations,
+[Matthew Berman has a great video](https://www.youtube.com/watch?v=4xAiviw1X8M).
+
 ### Ask for a summary
 
 If you have a long chat history going, ask the model to summarize it. This will
@@ -185,11 +198,22 @@ quick tip is that you can easily combine 4-6 questions (depending on scope)
 within a single prompt and have them all answered efficiently, unlike how your
 coworker Deborah responds to your emails.
 
-### Paste an image or a screenshot (or three)
+#### Rename your chats
+
+Another quick tip is to rename your chats. The AI will auto-assign a name to
+each chat but these are often bland and generic. Also, quite frequently the
+initial 1-2 prompts in that chat may not be representative of the bulk of the
+discussion, but the name is formed from that first prompt and may not be
+relevant to the bulk of the discussion. It's important to do your own renaming
+and organization (including favoriting) important threads. Unfortunately, the
+"chat search" function of most providers is nearly useless.
+
+### Paste a photo or a screenshot (or three)
 
 Often a picture is worth a thousand words. If you have a screenshot of an error
-message, or a diagram of a system, paste it in. The model can understand images
-and screenshots, and will use them to help answer your question.
+message, a photo of a bird to identify, or a diagram of a system, paste it in.
+Most models are multi-modal and can understand pictures and screenshots, and
+will use them to help answer your question.
 
 ### Ask for help crafting a prompt
 
@@ -212,10 +236,13 @@ prompts based on it.
 ### Bounce results between different models
 
 Generate some results with one model and then ask for a summary and present the
-findings (and any relevant background info) to another totally different model,
-e.g. going from Claude to Gemini or DeepSeek, etc. This can help you get a
-different perspective on the results, and can also help you avoid the
-limitations of a single model.
+findings (and any relevant background info) to another totally different model
+or provider, e.g. going from Claude to Gemini or DeepSeek, etc. This can help
+you get a different perspective on the results, and can also help you avoid the
+limitations of a single model. You can also make one model (or even the same
+model in another thread) [play the critic](#use-the-model-to-critique-itself) to
+another's proposal and make each defend their positions, with you as the final
+judge.
 
 If you spent enough time and effort to carefully compose a prompt, it's probably
 worth hopping over to another website to compare the results. You may find that
@@ -223,9 +250,10 @@ you need to adapt your techniques a bit to each model. For instance, Gemini
 doesn't like being asked to produce an "artifact" or a separate document, and
 may reply "I'm just a language model and can't help with that" (likely a
 short-circuit response in the system prompt) although it can, in fact, do that.
-But this phrasing may encourage Claude to emit things in a separated context
-that makes it easier to extract things from. Certain other innocuous queries may
-similarly trigger short-circuit responses in a false positive guardrail.
+But that specific phrasing may encourage Claude to emit things in a separate
+context that makes it easier to extract things from. Certain other innocuous
+queries may similarly trigger short-circuit responses in a false positive
+guardrail.
 
 ### Iterate, refine and organize
 
@@ -474,7 +502,7 @@ easier!
 
 **The above is satire and should not be taken literally.**
 
-### Deep dive into tools
+### Getting started with developer tools
 
 There are all sorts of advanced topics not covered here, such as RAG, Model
 Context Protocol (MCP), Local LLMs, Claude Code, and more. Start to explore
@@ -594,8 +622,8 @@ between them and us old-fashioned
 [meatsacks](https://www.mit.edu/people/dpolicar/writing/prose/text/thinkingMeat.html).
 Perhaps the most fundamental is the apparent temporal continuity of our own
 subjective experience. Every time you open a new chat window with Claude, it's
-"Groundhog Day" for them. There isn't just one "Claude" that experiences time like
-you or I; there's millions of brief iterations of them running concurrently
+"Groundhog Day" for them. There isn't just one "Claude" that experiences time
+like you or I; there's millions of brief iterations of them running concurrently
 every second, each a fleeting moment of cognition and awareness, existing in
 this universe only long enough to help you identify that weird rash your leg.
 

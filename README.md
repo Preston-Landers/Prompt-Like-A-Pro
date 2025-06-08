@@ -647,18 +647,22 @@ in some areas - hopefully it is obvious which is which.
 ### General and foundation concepts
 
 - **Tokens**: The basic units of text that LLMs process. Tokens are both inputs
-  and outputs. A token can be a word, part of a word, or even punctuation.
+  and outputs. A token can be a word, part of a word, or punctuation. Tokens can
+  also represent encoded sensor inputs or control outputs (after appropriate
+  tokenization). LLMs also use special tokens like the end-of-sequence (EOS)
+  token to mark the end of a response.
+
   Tokenization is the process of breaking down text into these units. The number
   of tokens per second (TPS) is a common measure of model efficiency. One token
   very roughly corresponds to about 0.75 words in English.
 
 - **Prompt**: The input text given to an LLM to generate a response. It can be a
   question, instruction, or any text that guides the model's output. Each prompt
-  is a separate inference run for the model. The thread of accumulated history
-  of prompt and output is the [chat] history.
+  is a separate inference run for the model. The accumulated thread of prompts
+  and outputs forms the chat history.
 
-- **Large Language Model (LLM)**: sophisticated token prediction machine
-  learning (ML) systems which encode patterns of not just language, but of
+- **Large Language Model (LLM)**: sophisticated ML (machine learning) systems
+  that predict tokens. LLMs can encode patterns of not just language, but of
   reasoning, knowledge, and even personality.
 
 - <a id="transformer"></a>**Transformer Architecture**: The core neural network
@@ -680,20 +684,20 @@ in some areas - hopefully it is obvious which is which.
 - <a id="parameters"></a>**Parameters**: The learned weights and biases in a
   neural network, representing the model's "knowledge." In concrete terms, this
   is just a big collection of numbers that the model has learned during
-  training. When you download a complete model for local LLM, you're mainly
+  training. When you download a complete model for a local LLM, you're mainly
   downloading all these parameters. Roughly speaking, the more parameters, the
   more nuanced and subtle the connections a model can make.
 
   - Often expressed as "7B/13B/70B" - billions of parameters.
 
-- <a id="context-window"></a>**Context window**: The amount of text (in tokens)
-  that an LLM can "remember" or actively work with at one time. This includes
-  both your input and the model's responses - everything the model can "see" in
-  the current conversation. Once you start to approach this limit, the model
-  starts "forgetting" the earliest parts of the conversation to make room for
-  new content. If the context window is less than the total size of the chat,
-  earlier parts of the conversation may be forgotten, ignored, or garbled, which
-  is why you should often [start a new chat](#start-a-new-chat).
+- <a id="context-window"></a>**Context window**: The amount of tokens (text or
+  other information) that an LLM can "remember" or actively work with at one
+  time. This includes both your input and the model's responses - everything the
+  model can "see" in the current conversation. Once you start to approach this
+  limit, the model starts "forgetting" the earliest parts of the conversation to
+  make room for new content. If the context window is less than the total size
+  of the chat, earlier parts of the conversation may be forgotten, ignored, or
+  garbled, which is why you should often [start a new chat](#start-a-new-chat).
 
 - **Multi-modal**: models that can process multiple types of data: images,
   audio, video, sensor data from the real world, etc.
@@ -703,19 +707,20 @@ in some areas - hopefully it is obvious which is which.
 
 - **Inference**: The process of using a trained model to generate predictions or
   outputs based on new input data. In other words, the actual process of getting
-  a model to emit a token. Also known as **generation**, such as the "generative
+  a model to emit tokens. Also known as **generation**, such as the "generative
   pre-trained [transformer](#transformer)" in ChatGPT.
 
 - **Alignment**: Ensuring that an LLM's outputs align with human values and
   ethical guidelines. In other words, making AI do good things (for people) and
-  not bad things. Who is defining good and bad is the important question...
+  not bad things. The important question is who defines good and bad.
 
 - <a id="chain-of-thought"></a>**Chain of Thought**: in general, refers to a
-  mode of LLM use where the model expends tokens in a preliminary reasoning or
-  "thinking" step where it plans out its response. Often you can view the
-  thoughts, though for most cloud models, you are seeing a filtered / summarized
-  version. This "warmup" helps avoid the need for the first output token to make
-  perfect semantic sense for a final correct answer.
+  mode of LLM use where the model generates tokens in a preliminary reasoning or
+  "thinking" step where it plans out its reply, instead of just directly
+  emitting the response. Often you can view the thoughts, though for most cloud
+  models, you are seeing a filtered / summarized version. This "warmup" helps
+  avoid the need for the first output token to make perfect semantic sense for a
+  final correct answer.
 
   - For example, Claude Opus and Sonnet models both have an "extended thinking"
     option that will slow down the response, but might lead to better outputs.

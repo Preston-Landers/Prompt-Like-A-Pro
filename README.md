@@ -36,7 +36,7 @@ Finally, there is a glossary of my notes on
 My coding workflow:
 
 - VS Code with folder of prompts and notes (all in
-  [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/quickstart-for-writing-on-github))
+  [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax))
 - Architecture, design and prompt engineering with multiple top-tier models.
   - E.g. Gemini 2.5 Pro and Claude Opus 4 w/ Thinking.
   - Develop a plan with one and have the other critique it harshly, and vice-versa, until solution is optimal

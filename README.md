@@ -671,6 +671,10 @@ in some areas - hopefully it is obvious which is which.
   is a separate inference run for the model. The accumulated thread of prompts
   and outputs forms the chat history.
 
+  - **Prompt Engineering**: Designing effective prompts to elicit desired
+    responses from LLMs. In other words, what [this article](#prompt-like-a-pro)
+    is about.
+
 - **Large Language Model (LLM)**: sophisticated ML (machine learning) systems
   that predict tokens. LLMs can encode patterns of not just language, but of
   reasoning, knowledge, and even personality.
@@ -768,10 +772,6 @@ in some areas - hopefully it is obvious which is which.
   running code, accessing databases, making API calls, controlling software, or
   even physical devices. Combined with agentic systems, this greatly expands
   what AI can do.
-
-- **Prompt Engineering**: Designing effective prompts to elicit desired
-  responses from LLMs. In other words, what [this article](#prompt-like-a-pro)
-  is about.
 
 ### Slang
 

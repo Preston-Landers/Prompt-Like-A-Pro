@@ -35,12 +35,13 @@ Finally, there is a glossary of my notes on
 
 My coding workflow:
 
-- VS Code with folder of prompts and notes
+- VS Code with folder of prompts and notes (all in
+  [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/quickstart-for-writing-on-github))
 - Architecture, design and prompt engineering with multiple top-tier models.
   - E.g. Gemini 2.5 Pro and Claude Opus 4 w/ Thinking.
-  - Develop a plan with one and have the other critique it harshly, and vice-versa, until an optimal solution is reached.
-- If necessary switch to cheaper models for execution and code gen (e.g. Claude Sonnet 4)
-- (Optional) local [dev tools](#getting-started-with-developer-tools) for
+  - Develop a plan with one and have the other critique it harshly, and vice-versa, until solution is optimal
+- If necessary, switch to cheaper models for prompt execution and code gen (e.g. Claude Sonnet 4)
+- (Optional) [dev tools](#getting-started-with-developer-tools) for
   execution: GitHub Copilot, Claude with MCP, and Claude Code.
 
 For prompt engineering, you need to move beyond simple questions and

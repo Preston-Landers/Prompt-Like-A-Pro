@@ -33,31 +33,39 @@ Finally, there is a glossary of my notes on
 
 ## TL;DR (Too Long; Didn't Read)
 
-To get the most out of any LLM, you need to move beyond simple questions and
+My coding workflow:
+
+- VS Code with folder of prompts and notes
+- Architecture, design and prompt engineering with multiple top-tier models.
+  - E.g. Gemini 2.5 Pro and Claude Opus 4 w/ Thinking.
+  - Develop a plan with one and have the other critique it harshly, and vice-versa, until an optimal solution is reached.
+- If necessary switch to cheaper models for execution and code gen (e.g. Claude Sonnet 4)
+- (Optional) local [dev tools](#getting-started-with-developer-tools) for
+  execution: GitHub Copilot, Claude with MCP, and Claude Code.
+
+For prompt engineering, you need to move beyond simple questions and
 become an active director of the conversation.
 
 - **Be the Director, Not Just a Questioner**: Don't just ask. Tell the model who
   to be (a [persona](#craft-a-persona-for-the-model)), what to do (be
   [explicit](#be-very-very-explicit-about-what-you-want)), what not to do (use
-  [negative constraints](#use-negative-constraints)), how to format the answer,
-  and most importantly, the "why" behind your request. Provide context with
-  text, examples, and even screenshots. The more clarity you give, the better
-  the result; the Garbage-In, Garbage-Out principle applies as ever.
+  [negative constraints](#use-negative-constraints)), and most importantly, the
+  "why" behind your request. Provide text, examples, photos and screenshots. The
+  more clarity you give, the better the result; Garbage-In, Garbage-Out.
 
 - **Manage Your Workspace**: Always
   [write prompts in a text editor](#never-compose-inside-the-chat-window) first
-  to avoid losing your work. Start a [fresh chat](#start-a-new-chat) for each
-  new problem to keep the model focused and avoid context window weirdness and
-  "attractor states". When a chat gets long, ask the model to
-  [summarize the key points](#ask-for-a-summary) before you start a new one.
-  Take notes and organize your prompts (and results) separately from the chat
-  windows.
+  to avoid losing your work. Starting a [fresh chat](#start-a-new-chat) frequently
+  keeps the model focused and avoids context window issues and "attractor states".
+  Rename chats frequently.
+  When a chat gets long, ask the model to [summarize the key points](#ask-for-a-summary).
+  Take notes and organize your prompts (and results) separately from the chat windows.
 
 - **Iterate and Cross-Examine**: Treat it like a real conversation. The first
   answer is a starting point. Push back, ask for clarification, request
   refinements, and make the model
-  [critique its own work](#use-the-model-to-critique-itself). For tough
-  problems, bounce the results between different models to get fresh
+  [critique its own work](#use-the-model-to-critique-itself) or that of other models.
+  Bounce the results between different models to get fresh
   perspectives and break through limitations. Regroup and revisit your notes.
 
 - **Somebody's Gotta Fly This Plane**: Trust, but verify everything. LLMs are
@@ -464,7 +472,9 @@ back with the more advanced model for analysis of the results.
 
 This goes back to the point about bouncing results between different models. You
 can use different models for different tasks, and switch between them as needed,
-and ask each to critique the other's results.
+and ask each to critique the other's results. Asking for a "senior architect"
+[persona](#craft-a-persona-for-the-model) to critique a plan produced by another
+model is one of the most powerful  techniques I have found.
 
 #### Profile customization
 
